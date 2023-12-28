@@ -1,6 +1,18 @@
 @extends('layouts.customer-layout')
 
 @section('customer-content')
+
+@if (session('error'))
+<div class="sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+  <div class="relative rounded-lg border border-red-300 p-4">
+    <div class="text-red-600">
+        {{ session('error') }}
+    </div>
+  </div>
+</div> 
+<br>
+@endif
+
 <div class="container mx-auto mt-10">
   <div class="flex flex-col md:flex-row shadow-md my-10">
     <div class="md:w-3/4 bg-white px-10 py-10">

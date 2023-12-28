@@ -12,13 +12,21 @@ class CartController extends Controller
     {
         $cart = session('cart', []);
         $totalPrice = 0;
-    
+
         foreach ($cart as $cartItem) {
             $product = Product::find($cartItem['productID']);
-            $itemPrice = $product->price * $cartItem['quantity'];
-            $totalPrice += $itemPrice;
+
+            if ($product && $product->stock >= $cartItem['quantity'] && $product->exp_date >= now()->toDateString()) {
+                $itemPrice = $product->price * $cartItem['quantity'];
+                $totalPrice += $itemPrice;
+            } else {
+                // Remove the product from the cart if it is no longer in stock or expired
+                unset($cart[array_search($cartItem, $cart)]);
+                session(['cart' => $cart]);
+                return redirect()->back()->with('error', 'One or more products in your cart are no longer available or expired.');
+            }
         }
-    
+
         return view('pages.customer.cart', compact('cart', 'totalPrice'));
     }
 

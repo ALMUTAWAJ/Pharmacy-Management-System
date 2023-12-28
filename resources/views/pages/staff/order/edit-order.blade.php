@@ -76,8 +76,19 @@
                 
                 <br><br>
 
+                <!--Prescriptions-->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">Prescription Files</h2>
+                    @foreach ($prescriptionFiles as $index => $prescription)
+                    <a href="{{ asset('storage/' . $prescription->prescription_upload) }}" target="_blank">
+                        <div class="relative rounded-lg border-2 border-black-900 p-4 text-black-600">
+                            Prescription {{ $index + 1 }}
+                        </div>
+                    </a>
+                    <br>
+                    @endforeach
+                </div>                
 
-                
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-70 text-sm text-left rtl:text-right text-gray-500">

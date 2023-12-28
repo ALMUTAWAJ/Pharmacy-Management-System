@@ -47,18 +47,6 @@
           </tbody>
         </table>
 
-        {{-- @if ($errors->any())
-        <div class="text-red-500 mt-4">
-          <ul class="list-disc list-inside">
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif --}}
-        {{-- upper --}}
-
-    {{-- Errors will be shown here --}}
     <x-errors></x-errors>
 
     <p class="mt-8 text-lg font-medium">Contact Information</p>
@@ -176,20 +164,19 @@
   <input type="hidden" name="user_id" value="{{ $user->id }}">
   <div class="p-6 space-y-6">
     <!-- Radio button list for addresses -->
-<!-- Radio button list for addresses -->
-@foreach ($user->personal->addresses as $address)
-  <div class="flex gap-4">
-    <div class="w-full">
-      <label class="inline-flex items-center">
-        <input type="radio" name="address-id" value="{{ $address->id }}" class="form-radio text-primary-600" {{ $address->id == session('selected_address_id', $user->personal->address_id) ? 'checked' : '' }}>
-        <span class="ml-2">{{ $address->city }}, {{ $address->house }}, {{ $address->road }}, {{ $address->block }}</span>
-      </label>
-    </div>
-  </div>
-@endforeach
+    @foreach ($user->personal->addresses as $address)
+      <div class="flex gap-4">
+        <div class="w-full">
+          <label class="inline-flex items-center">
+            <input type="radio" name="address-id" value="{{ $address->id }}" class="form-radio text-primary-600" {{ $address->id == session('selected_address_id', $user->personal->address_id) ? 'checked' : '' }}>
+            <span class="ml-2">{{ $address->city }}, {{ $address->house }}, {{ $address->road }}, {{ $address->block }}</span>
+          </label>
+        </div>
+      </div>
+    @endforeach
 
     <!-- Additional address fields -->
-    Add a new address
+    <h1>Add a new address</h1>
     <div class="flex gap-4">
       <div class="w-full">
         <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
@@ -227,27 +214,28 @@
     
     <form id="checkout" action="{{ route('customer.order') }}" method="POST" enctype="multipart/form-data">
       @csrf
-     <!-- Upload -->
-     @if ($hasPrescriptionProduct)
-         <div class="relative rounded-lg border border-gray-300 p-4">
-             <div class="ml-5">
-                 <p class="text-xl font-medium">Prescription Required!</p>
-                 <p class="text-slate-500 text-sm leading-6">Please upload a prescription for the following products:</p>
-                 <ol class="text-slate-500 text-sm leading-6">
-                     @foreach ($prescriptionProducts as $product)
-                         <li class="numeric">{{ $product }}</li>
-                     @endforeach
-                 </ol>
-                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4" for="prescriptions">Upload multiple files</label>
-                 <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="prescriptions" name="prescriptions[]" type="file" multiple>
-             </div>
-     </div>
-  @endif
-<!-- Payment section code -->
-<div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
-  <p class="text-xl font-medium">Payment Method</p>
-  <p class="text-gray-400">Complete your order by selecting your payment method</p>
-<br>
+    <!-- Upload -->
+    @if ($hasPrescriptionProduct)
+        <div class="relative rounded-lg border border-gray-300 p-4">
+            <div class="ml-5">
+                <p class="text-xl font-medium">Prescription Required!</p>
+                <p class="text-slate-500 text-sm leading-6">Please upload a prescription for the following products:</p>
+                <ol class="text-slate-500 text-sm leading-6">
+                    @foreach ($prescriptionProducts as $product)
+                        <li class="numeric">{{ $product }}</li>
+                    @endforeach
+                </ol>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4" for="prescriptions">Upload multiple files</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="prescriptions" name="prescriptions[]" type="file" multiple>
+            </div>
+        </div>
+    @endif
+    
+    <!-- Payment section code -->
+    <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+      <p class="text-xl font-medium">Payment Method</p>
+      <p class="text-gray-400">Complete your order by selecting your payment method</p>
+    <br>
 
       <div class="mb-3 flex -mx-2">
         <div class="px-2">

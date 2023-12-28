@@ -82,21 +82,12 @@ class RegisterController extends Controller
         if ($var1) {
             $user_id = $var1->id; // Last inserted user ID
             $personal_info['userID'] = $user_id;
-        
+    
             // Create personal information for the user
             $var2 = Personal::create($personal_info);
-        
+    
             if ($var2) {
-                // Create an empty address record associated with the user
-                $emptyAddress = new Address();
-                $savedEmptyAddress = $var1->personal->addresses()->save($emptyAddress);
-        
-                if ($savedEmptyAddress) {
-                    return redirect(route('login'))->with('success', 'Congratulations, your account has been created successfully!');
-                } else {
-                    $var1->delete();
-                    return redirect(route('register'))->with('fail', 'Failed to create an initial address. Please try again.');
-                }
+                return redirect(route('login'))->with('success', 'Congratulations, your account has been created successfully!');
             } else {
                 $var1->delete();
                 return redirect(route('register'))->with('fail', 'Failed to create personal information. Please try again.');
