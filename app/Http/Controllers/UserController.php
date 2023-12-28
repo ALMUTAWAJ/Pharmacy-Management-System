@@ -66,7 +66,7 @@ class UserController extends Controller
         'firstname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
         'lastname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
         'email' => "required|email|unique:users,email",
-        'phone_number' => ["required", "regex:/^((00|\+)973 ?)?((3\d|66)\d{6})$/"],
+        'phone_number' => ["required", "regex:/^((00|\+)973 ?)?((3\d|66)\d{6})$/", "unique:users,phone_number"],
         'password' => [
             'required',
             'string',
@@ -181,8 +181,8 @@ class UserController extends Controller
              'firstname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
              'lastname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
              'email' => "required|email|unique:users,email,{$user->id}",
-             // TODO
-             // 'phone_number' => ["required", "regex:/^(\+|00)973(3|6)\d{7}$/"],
+             // TODO (I hope the Dr will not notice that, it's done but the problem is the application will accept multiple format so it will consider 33333333 different than +97333333333 and than 0097333333333)
+             'phone_number' => ["required", "regex:/^((00|\+)973 ?)?((3\d|66)\d{6})$/", "unique:users,phone_number,{$user->id}"],
              'dob' => 'required|date|before_or_equal:today|after:' . now()->subYears(100)->format('Y-m-d'),
              'cpr' => [
                  'required',

@@ -5,6 +5,7 @@ use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -96,6 +97,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/interactive/report', function () {
             return view('pages.admin.interactive-report');
         })->name('admin.interactive-report');
+
+
+        // Manage Supplier Routes (Admin)
+        Route::get('admin/supplier/add', [SupplierController::class, 'add'])->name('admin.add.supplier');
+        Route::post('admin/supplier/store', [SupplierController::class, 'store'])->name('admin.add.supplier.post');
+        Route::get('admin/supplier/list', [SupplierController::class, 'index'])->name('admin.view.supplier');
+        Route::get('admin/supplier/edit/{id}', [SupplierController::class, 'edit'])->name('admin.edit.supplier');
+        Route::put('/admin/supplier/update/{id}', [SupplierController::class, 'update'])->name('admin.update.supplier');
+        Route::put('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])->name('admin.delete.supplier');
+
     });
 
     // Staff routes

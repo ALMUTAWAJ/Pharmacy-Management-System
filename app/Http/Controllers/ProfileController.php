@@ -38,7 +38,7 @@ class ProfileController extends Controller
                 'email' => "required|email|unique:users,email,{$user->id}",
                 'firstname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
                 'lastname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
-                'phone_number' => ["required", "regex:/^(\+|00)973(3|6)\d{7}$/"],
+                'phone_number' => ["required", "regex:/^((00|\+)973 ?)?((3\d|66)\d{6})$/", "unique:users,phone_number,{$user->id}"],
                 'dob' => 'required|date|before_or_equal:today|after:' . now()->subYears(100)->format('Y-m-d'),
                 "cpr" => ['required', 'regex:/^([0-9]{2}(0[0-9]|1[0-2])\d{5})$/', "unique:personals,cpr,{$user->id}"],
                 'username' => "required|string|regex:/^\w*$/|max:24|unique:users,username,{$user->id}",
@@ -46,6 +46,7 @@ class ProfileController extends Controller
             [
                 'dob.before_or_equal' => 'This human does not exist',
                 'dob.after' => 'Are you still alive?',
+                'phone_number.regex'=>'The phone number must follow Bahrain standards'
             ]
         );
 
