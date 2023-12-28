@@ -92,7 +92,7 @@
     {{-- products card --}}
 
     {{-- new Arrivals --}}
-    @if (asset($newArrivals))
+    @if (isset($newArrivals))
         <x-title>{{ __('new Arrivals') }}</x-title>
         <!-- component -->
         <div class="flex flex-col bg-white m-auto p-auto">
@@ -113,7 +113,7 @@
     @endif
 
     {{-- Best sellers --}}
-    @if ($bestSellers)
+    @if (isset ($bestSellers))
         <x-title>{{ __('Best sellers') }}</x-title>
         <!-- component -->
         <div class="flex flex-col bg-white m-auto p-auto">
@@ -134,7 +134,7 @@
     @endif
 
     {{-- customer reviews  --}}
-    @if ($customerReviews)
+    @if (isset ($customerReviews))
         <x-title>{{ __('Customer Reviews') }}</x-title>
         <!-- component -->
         <div class="flex flex-col bg-white m-auto p-auto">
