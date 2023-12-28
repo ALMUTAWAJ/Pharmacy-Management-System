@@ -83,7 +83,14 @@ class ManageOrderController extends Controller
     {
         $order = Order::with('orderDetails.product')->find($id);
 
+        // Check for unapproved prescriptions 
         if ($request->status === 'Delivered') {
+            $unapprovedPrescriptions = Prescription::where('orderID', $id)->where('approval', 0)->exists();
+        
+            if ($unapprovedPrescriptions) {
+                return redirect(route('staff.edit.order', ['id' => $id]))->with('fail', 'Cannot set status to "Delivered" as there are unapproved prescriptions.');
+            }
+        
             $order->status = 'Delivered';
             $order->save();
             return redirect(route('staff.edit.order', ['id' => $id]))->with('success', 'The status set to "Delivered" successfully!');
@@ -96,6 +103,7 @@ class ManageOrderController extends Controller
         if ($prescriptions->isNotEmpty()) {
             foreach ($prescriptions as $prescription) {
                 $prescription->staffID = $staffID;
+                $prescription->approval = $request->has('approval') && in_array($prescription->id, $request->approval) ? 1 : 0;
                 $prescription->save();
             }
         }
