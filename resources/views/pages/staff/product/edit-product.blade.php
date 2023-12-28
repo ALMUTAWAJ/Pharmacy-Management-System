@@ -121,7 +121,7 @@
                     </div>
                 </div>
 
-
+ 
                 @if ($product->image)
                     <div class="mt-6">
                         <h3 class="text-lg font-medium text-gray-900">Product Image:</h3>
