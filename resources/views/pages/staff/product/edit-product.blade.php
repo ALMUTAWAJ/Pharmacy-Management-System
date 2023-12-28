@@ -11,7 +11,6 @@
                 </a>
             </div>
 
-
             <x-errors></x-errors>
             <x-fail-message></x-fail-message>
             <x-success-message></x-success-message>
@@ -121,13 +120,12 @@
                     </div>
                 </div>
 
-
                 @if ($product->image)
                     <div class="mt-6">
                         <h3 class="text-lg font-medium text-gray-900">Product Image:</h3>
                         <div class="mt-4 relative w-full h-40 rounded-md border border-gray-300 bg-white overflow-hidden">
                             <div id="image-preview" class="aspect-w-4 aspect-h-3">
-                                <img src="{{ old('product-image') ? old('product-image') : asset('storage/' . $product->image) }}"
+                                <img src="{{ old('product-image') ? old('product-image') : URL::asset('storage/' . $product->image) }}"
                                     alt="Product Image" class="object-contain w-full h-full">
                             </div>
                         </div>
