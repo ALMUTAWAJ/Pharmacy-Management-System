@@ -1,6 +1,18 @@
 @extends('layouts.customer-layout')
 
 @section('customer-content')
+
+@if (session('error'))
+<div class="sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+  <div class="relative rounded-lg border border-red-300 p-4">
+    <div class="text-red-600">
+        {{ session('error') }}
+    </div>
+  </div>
+</div> 
+<br>
+@endif
+
 <div class="container mx-auto mt-10">
   <div class="flex flex-col md:flex-row shadow-md my-10">
     <div class="md:w-3/4 bg-white px-10 py-10">
@@ -42,8 +54,8 @@
           <input class="mx-2 border text-center w-12 quantity-input" type="text" value="{{ $cartItem['quantity'] }}" data-product-id="{{ $cartItem['productID'] }}">
           <button class="quantity-btn plus-btn" onclick="incrementQuantity(this)">+</button>
         </div>
-        <span class="text-center w-full md:w-1/5 font-semibold text-sm">{{ $product->price }} BD</span>
-        <span class="text-center w-full md:w-1/5 font-semibold text-sm">{{ $itemPrice }} BD</span>
+        <span class="text-center w-full md:w-1/5 font-semibold text-sm">BD {{ $product->price }}</span>
+        <span class="text-center w-full md:w-1/5 font-semibold text-sm">BD {{ $itemPrice }}</span>
       </div>
       @endforeach
 
@@ -61,18 +73,18 @@
       <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
       <div class="flex justify-between mt-10 mb-5">
         <span class="font-semibold text-sm">Items{{ count($cart) }}</span>
-        <span class="font-semibold text-sm">${{ $totalPrice }}</span>
+        <span class="font-semibold text-sm">BD {{ $totalPrice }}</span>
       </div>
       <div>
         <label class="font-medium inline-block mb-3 text-sm">Shipping</label>
         <select class="block p-2 text-gray-600 w-full text-sm">
-          <option>Standard shipping - 2.00 BD</option>
+          <option>Standard shipping - BD 2.00</option>
         </select>
       </div>
       <div class="border-t mt-8">
         <div class="flex font-semibold justify-between py-6 text-sm">
           <span>Total cost</span>
-          <span>${{ $totalPrice }}</span>
+          <span>BD {{ $totalPrice }}</span>
         </div>
         <a href="{{ route('customer.checkout') }}">
           <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white w-full <?php echo empty($cart) ? 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed' : ''; ?>" <?php echo empty($cart) ? 'disabled' : ''; ?>>Checkout</button>

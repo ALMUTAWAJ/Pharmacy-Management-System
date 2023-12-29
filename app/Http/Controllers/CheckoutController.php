@@ -184,90 +184,6 @@ class CheckoutController extends Controller
     return redirect()->back();
 }
 
-    // public function placeOrder(Request $request)
-    // {
-    //     try {
-    //         $userId = $request->user()->id;
-    //         $cart = session('cart', []);
-    //         $totalPrice = 0;
-    //         $hasPrescriptionProduct = false;
-
-    //         foreach ($cart as $cartItem) {
-    //             $product = Product::find($cartItem['productID']);
-
-    //             if ($product) {
-    //                 $totalPrice += $product->price * $cartItem['quantity'];
-
-    //                 if ($product->prescription_req) {
-    //                     $hasPrescriptionProduct = true;
-    //                 }
-    //             }
-    //         }
-
-    //         $status = $hasPrescriptionProduct ? 'pending' : 'accepted';
-
-    //         if (empty($cart)) {
-    //             return redirect()->back()->with('error', 'Your cart is empty. Please add products before placing an order.');
-    //         }
-
-    //         $order = Order::create([
-    //             'customerID' => $userId,
-    //             'total_price' => $totalPrice,
-    //             'status' => $status,
-    //         ]);
-
-    //         foreach ($cart as $cartItem) {
-    //             $order->orderDetails()->create([
-    //                 'productID' => $cartItem['productID'],
-    //                 'quantity' => $cartItem['quantity'],
-    //             ]);
-    //         }
-
-    //         if ($hasPrescriptionProduct) {
-    //             if ($request->hasFile('prescriptions')) {
-    //                 $prescriptions = $request->file('prescriptions');
-
-    //                 foreach ($prescriptions as $prescription) {
-    //                     $filename = $prescription->getClientOriginalName();
-    //                     $prescription->storeAs('prescriptions', $filename);
-
-    //                     $prescriptionData = [
-    //                         'customerID' => $userId,
-    //                         'orderID' => $order->id,
-    //                         'staffID' => null,
-    //                         'approval' => 0, // Pending approval to 0 
-    //                         'prescription_upload' => $filename,
-    //                     ];
-
-    //                     Prescription::create($prescriptionData);
-    //                 }
-    //             }
-    //         }
-
-    //         $method = $request->input('payment-method');
-
-    //         // Determine the payment method and set the corresponding values
-    //         $paymentMethod = ($method === 'type1') ? 'card' : 'cash';
-    //         $transaction = ($paymentMethod === 'card') ? mt_rand(1_000_000_000, 9_999_999_999) : null;
-    //         $status = ($paymentMethod === 'card') ? 'successful' : 'pending';
-
-    //         $payment = Payment::create([
-    //             'orderID' => $order->id,
-    //             'status' => $status,
-    //             'amount' => $totalPrice,
-    //             'method' => $paymentMethod,
-    //             'transaction' => $transaction,
-    //         ]);
-
-    //         session()->forget('cart');
-
-    //         return view('pages.customer.order', ['order' => $order->id]);
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage());
-    //     }
-    // }
-
-    
 
 public function placeOrder(Request $request)
 {
@@ -276,9 +192,9 @@ public function placeOrder(Request $request)
         $cart = session('cart', []);
         $totalPrice = 0;
         $hasPrescriptionProduct = false;
-        
+
         $selectedAddressId = session('selected_address_id', null); // Extract the selected address ID from the session
-        
+
         if (empty($selectedAddressId)) {
             return redirect()->back()->with('error', 'Please select an address before placing an order.');
         }
@@ -287,13 +203,18 @@ public function placeOrder(Request $request)
 
         foreach ($cart as $cartItem) {
             $product = Product::find($cartItem['productID']);
-
-            if ($product) {
+        
+            if ($product && $product->stock >= $cartItem['quantity'] && $product->exp_date >= now()->toDateString()) {
                 $totalPrice += $product->price * $cartItem['quantity'];
-
+        
                 if ($product->prescription_req) {
                     $hasPrescriptionProduct = true;
                 }
+        
+                $product->stock -= $cartItem['quantity'];
+                $product->save();
+            } else {
+                return redirect()->back()->with('error', 'One or more products in your cart are unavailable or expired.');
             }
         }
 
@@ -306,7 +227,7 @@ public function placeOrder(Request $request)
         $order = Order::create([
             'customerID' => $userId,
             'addressID' => $selectedAddressId, // Set the selected address ID
-            'total_price' => $totalPrice,
+            'total_price' => $totalPrice + 2,
             'status' => $status,
         ]);
 
@@ -323,14 +244,14 @@ public function placeOrder(Request $request)
 
                 foreach ($prescriptions as $prescription) {
                     $filename = $prescription->getClientOriginalName();
-                    $prescription->storeAs('prescriptions', $filename);
+                    $path = $prescription->store('prescriptions', 'public');
 
                     $prescriptionData = [
                         'customerID' => $userId,
                         'orderID' => $order->id,
                         'staffID' => null,
-                        'approval' => 0, // Pending approval to 0 
-                        'prescription_upload' => $filename,
+                        'approval' => 0,
+                        'prescription_upload' => $path,
                     ];
 
                     Prescription::create($prescriptionData);
@@ -360,4 +281,7 @@ public function placeOrder(Request $request)
         dd($e->getMessage());
     }
 }
+
+
 }
+

@@ -76,9 +76,37 @@
                 
                 <br><br>
 
+            <!-- Prescription Files -->
+            @if ($prescriptionFiles->isNotEmpty())
 
-                
+                <h2 class="text-2xl font-bold mb-4">Prescription Files</h2>
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                          <th scope="col" class="w-10/12 px-10 py-3">Prescription Link</th>
+                          <th scope="col" class="w-2/12 px-4 py-3 text-right pr-5">Approval</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($prescriptionFiles as $index => $prescription)
+                          <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} border-b">
+                            <td class="w-10/12 px-10 py-3">
+                              <a href="{{ asset('storage/' . $prescription->prescription_upload) }}" target="_blank">
+                                Prescription {{ $index + 1 }}
+                              </a>
+                            </td>
+                            <td class="w-2/12 px-4 py-3 text-right pr-10">
+                              <input type="checkbox" name="approval[]" value="{{ $prescription->id }}" {{ $prescription->approval ? 'checked' : '' }}>
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+            @endif           
 
+            <h2 class="text-2xl font-bold mb-4 mt-3">Order Products</h2>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-70 text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -112,7 +140,7 @@
                                         class="w-10 md:w-20 max-w-full max-h-full" alt="Product Image">
                                 </td>
                                 <th scope="row" class="text-center px-2 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                    {{"#".$order_detail->product->id}}
+                                    {{$order_detail->product->id}}
                                 </th>
                                 <td class="px-2 py-2 text-center">
                                     {{$order_detail->product->name}}

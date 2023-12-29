@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Address;
 use App\Models\OrderDetail;
+use App\Models\Prescription;
 
 class Order extends Model
 {
@@ -33,4 +34,9 @@ class Order extends Model
     {
         return $this->belongsTo(Address::class, 'addressID', 'id');
     }
+
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class, 'orderID', 'id');
+    }   
 }

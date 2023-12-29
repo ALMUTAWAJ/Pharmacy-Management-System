@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Prescription;
 
 class ManageOrderController extends Controller
 {
@@ -41,51 +42,70 @@ class ManageOrderController extends Controller
 
 
     public function edit_and_show($id, Request $request)
-    {
-        $order = Order::with([
-            'orderDetails.product',
-            'user.personal',
-        ])->find($id);
+{
+    $order = Order::with([
+        'orderDetails.product',
+        'user.personal'
+    ])->find($id);
 
-        $filterType = $request->query('filter_type');
-        $searchQuery = $request->query('search');
+    $filterType = $request->query('filter_type');
+    $searchQuery = $request->query('search');
 
-        $orderDetails = $order->orderDetails(); // Get the order details relationship
+    $orderDetails = $order->orderDetails();
 
-        if ($filterType) {
-            $orderDetails->whereHas('product', function ($query) use ($filterType) {
-                $query->where('category', $filterType);
-            });
-        }
-
-        if ($searchQuery) {
-            $orderDetails->where(function ($query) use ($searchQuery) {
-                $query->whereHas('product', function ($query) use ($searchQuery) {
-                    $query->where('name', 'like', '%' . $searchQuery . '%')
-                        ->orWhere('ID', 'like', '%' . $searchQuery . '%');
-                });
-            });
-        }
-
-        $orderDetails = $orderDetails->get(); // Retrieve the filtered order details
-
-        $user = $order->user;
-        $personal = $user->personal;
-
-
-        return view('pages.staff.order.edit-order', compact('searchQuery', 'filterType', 'order', 'orderDetails', 'personal'));
+    if ($filterType) {
+        $orderDetails->whereHas('product', function ($query) use ($filterType) {
+            $query->where('category', $filterType);
+        });
     }
 
+    if ($searchQuery) {
+        $orderDetails->where(function ($query) use ($searchQuery) {
+            $query->whereHas('product', function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('ID', 'like', '%' . $searchQuery . '%');
+            });
+        });
+    }
+
+    $orderDetails = $orderDetails->get();
+
+    $user = $order->user;
+    $personal = $user->personal;
+
+    $prescriptionFiles = Prescription::where('orderID', $id)->get(); // Retrieve prescriptions associated with the order ID
+
+    return view('pages.staff.order.edit-order', compact('searchQuery', 'filterType', 'order', 'orderDetails', 'personal', 'prescriptionFiles'));
+}
 
 
     public function updateOrder($id, Request $request)
     {
         $order = Order::with('orderDetails.product')->find($id);
 
+        // Check for unapproved prescriptions 
         if ($request->status === 'Delivered') {
+            $unapprovedPrescriptions = Prescription::where('orderID', $id)->where('approval', 0)->exists();
+        
+            if ($unapprovedPrescriptions) {
+                return redirect(route('staff.edit.order', ['id' => $id]))->with('fail', 'Cannot set status to "Delivered" as there are unapproved prescriptions.');
+            }
+        
             $order->status = 'Delivered';
             $order->save();
             return redirect(route('staff.edit.order', ['id' => $id]))->with('success', 'The status set to "Delivered" successfully!');
+        }
+
+        // Add staffID to prescriptions
+        $staffID = auth()->user()->id;
+        $prescriptions = Prescription::where('orderID', $id)->get();
+
+        if ($prescriptions->isNotEmpty()) {
+            foreach ($prescriptions as $prescription) {
+                $prescription->staffID = $staffID;
+                $prescription->approval = $request->has('approval') && in_array($prescription->id, $request->approval) ? 1 : 0;
+                $prescription->save();
+            }
         }
 
         $indicesToSave = [];
