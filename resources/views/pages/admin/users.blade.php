@@ -29,7 +29,6 @@ Users blade
                     <div class="cursor-pointer hover:bg-gray-100 p-2" onclick="selectFilter('')">All</div>
                     <div class="cursor-pointer hover:bg-gray-100 p-2" onclick="selectFilter('admin')">Admins</div>
                     <div class="cursor-pointer hover:bg-gray-100 p-2" onclick="selectFilter('staff')">Staff</div>
-                    <div class="cursor-pointer hover:bg-gray-100 p-2" onclick="selectFilter('supplier')">Suppliers</div>
                     <div class="cursor-pointer hover:bg-gray-100 p-2" onclick="selectFilter('customer')">Customers</div>
                 </x-dropdown-input>
                 <input type="hidden" id="filter_type" name="filter_type" value="{{ request('filter_type') }}" />

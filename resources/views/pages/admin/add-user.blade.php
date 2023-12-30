@@ -9,13 +9,12 @@
       <h1 class="mb-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl mt-5">
         Add a new staff member</h1>
           <div style="grid-column: 1;">
-            <div class ="nonsupplierfileds">
-                  <div class="flex gap-4">
+            <div class="flex gap-4">
                       <div class="w-full">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">Email</label>
                         <input type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400" placeholder="name@company.com" required value="{{ old('email') }}">
                       </div>
-                      <div class="w-full" id="us">
+                      <div class="w-full">
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">Username</label>
                         <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400" placeholder="e.g. Sick_Tiger" required value="{{ old('username') }}">
                       </div>
@@ -30,34 +29,6 @@
                         <input type="text" name="lastname" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400" placeholder="Enter Your Last Name" required value="{{ old('lastname') }}">
                       </div>
                     </div>
-              </div>
-                    <!-- Suplier Additional Part -->
-                    <div id="supplierFields" style="display: none;">
-                        <div class="flex gap-4">
-                          <div class="w-1/2">
-                          <div class="w-full">
-                            <label for="supemail" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">Email</label>
-                            <input type="text" name="supemail" id="supemail" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400" placeholder="name@company.com" required value="{{ old('supemail') }}">
-                          </div>
-                          </div>
-                          <div class="w-1/2">
-                            <label for="company_name" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">Company Name</label>
-                            <input type="text" name="company_name" id="company_name"
-                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400"
-                                  required>
-                        </div>
-                        </div>
-                        <div class="flex gap-4">
-                        <div class="w-full">
-                            <label for="commercial_register" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">Commercial Register</label>
-                            <input type="text" name="commercial_register" id="commercial_register"
-                                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400"
-                                  required>
-                        </div>
-                    </div>
-                    <!-- Suplier Additional Part - End-->
-          </div>
-              <div class ="nonsupplierfileds">
                     <div class="flex gap-4">
                       <div class="w-1/2">
                         <label for="cpr" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">CPR</label>
@@ -68,7 +39,6 @@
                         <input type="date" name="dob" id="dob" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400" required value="{{ old('dob') }}">
                       </div>
                     </div>
-
                     <div class="flex gap-4">
                       <div class="w-1/2">
                         <div class="w-full">
@@ -83,7 +53,6 @@
                         </div>
                       </div>
                     </div>
-            </div>
                     <div class="flex gap-4">
                       <div class="w-1/2">
                         <div class="w-full">
@@ -92,16 +61,15 @@
                         </div>
                       </div>
                       <div class="w-1/2">
-                        <label for="role" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">Role</label>
-                        <select name="role" id="role"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400"
-                                required>
-                            <option value="customer">Customer</option>
+                        <div class="w-full">
+                          <label for="role" class="block mb-2 text-sm font-medium text-gray-900 white:text-white">Role</label>
+                          <select name="role" id="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400" required>
+                            <option value="staff">Staff</option> 
                             <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
-                            <option value="supplier">Supplier</option>
-                        </select>
-                    </div>
+                            <option value="customer">Customer</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                     </div>
                    
@@ -141,49 +109,4 @@
             </div>
             </form>
             </section>
-
-            {{-- <script>
-              const roleSelect = document.getElementById('role');
-              const supplierFields = document.getElementById('supplierFields');
-              var nonsupplierfileds = document.querySelectorAll('.nonsupplierfileds');
-
-              roleSelect.addEventListener('change', function () {
-                  const selectedRole = this.value;
-                  if (selectedRole === 'supplier') {
-                      supplierFields.style.display = 'block';
-                      for (var i = 0; i < nonsupplierfileds.length; i++) {
-                        nonsupplierfileds[i].style.display = 'none';
-                      }
-                  } else {
-                      supplierFields.style.display = 'none';
-                      for (var i = 0; i < nonsupplierfileds.length; i++) {
-                        nonsupplierfileds[i].style.display = 'block';
-                      }
-                  }
-              });
-            </script> --}}
-
-<script>
-  window.addEventListener('DOMContentLoaded', function() {
-    var roleSelect = document.getElementById('role');
-    var supplierFields = document.getElementById('supplierFields');
-    var nonsupplierfileds = document.querySelectorAll('.nonsupplierfileds');
-    var spuemailInput = document.getElementById('spuemail');
-
-    roleSelect.addEventListener('change', function () {
-                  const selectedRole = this.value;
-                  if (selectedRole === 'supplier') {
-                      supplierFields.style.display = 'block';
-                      for (var i = 0; i < nonsupplierfileds.length; i++) {
-                        nonsupplierfileds[i].style.display = 'none';
-                      }
-                  } else {
-                      supplierFields.style.display = 'none';
-                      for (var i = 0; i < nonsupplierfileds.length; i++) {
-                        nonsupplierfileds[i].style.display = 'block';
-                      }
-                  }
-              });
-  });
-</script>
 @endsection
