@@ -217,7 +217,6 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     
-     // Everything works except the phone number
      public function update(Request $request, User $user)
      {
          $request->validate([
@@ -265,10 +264,24 @@ class UserController extends Controller
                         'block' => $addressData['block'],
                         'house' => $addressData['house'],
                     ]);
+                } else {
+                    $address = new Address([
+                        'city' => $addressData['city'],
+                        'road' => $addressData['road'],
+                        'block' => $addressData['block'],
+                        'house' => $addressData['house'],
+                    ]);
+                    $user->personal->addresses()->save($address);
                 }
             }
         }
-     
+
+        // Delete selected addresses
+        if ($request->has('addressesToDelete')) {
+            $selectedAddresses = $request->input('addressesToDelete');
+            $user->personal->addresses()->whereIn('id', $selectedAddresses)->delete();
+        }
+
          $user->update(['role' => $request->role]);
      
          return redirect()->route('users.index')->with('success', 'User information has been updated successfully.');
@@ -281,7 +294,6 @@ class UserController extends Controller
      public function destroy(User $user)
      {
          try {
-             // Check if the user being deleted is the currently authenticated user
              $loggedInUser = Auth::user();
              if ($user->id === $loggedInUser->id) {
                  return redirect(route('users.index'))->with('error', 'You cannot delete your own account.');
@@ -290,35 +302,28 @@ class UserController extends Controller
              // Start a database transaction
              DB::beginTransaction();
              
-             // Delete the associated orders
              foreach ($user->orders as $order) {
                  $order->orderDetails()->delete();
                  $order->prescriptions()->delete();
                  $order->delete();
              }
              
-             // Check if the user being deleted is a staff member
              if ($user->role === 'staff') {
                  // Set staffID as null for associated prescriptions
                  $user->prescriptions()->update(['staffID' => null]);
              }
              
-             // Delete the associated addresses
              $user->personal->addresses()->delete();
              
-             // Delete the user record
              $user->personal->delete();
              $user->delete();
              
-             // Commit the transaction
              DB::commit();
              
              return redirect(route('users.index'))->with('success', 'User, associated orders, and addresses have been deleted successfully!');
          } catch (\Exception $e) {
-             // Rollback the transaction in case of an error
              DB::rollBack();
              
-             // Handle the exception as per your application's needs
              return redirect(route('users.index'))->with('error', 'An error occurred while deleting the user.');
          }
      }
