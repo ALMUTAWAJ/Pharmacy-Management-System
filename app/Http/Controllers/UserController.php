@@ -139,6 +139,7 @@ class UserController extends Controller
             'username' => Str::lower($validatedData['username']),
             'role' => Str::lower($request->input('role')),
             'phone_number' => $validatedData['phone_number'],
+            'name' => $validatedData['firstname'] . ' ' . $validatedData['lastname'],
         ];
     
         $user = User::create($cred);
@@ -246,6 +247,7 @@ class UserController extends Controller
              'username' => $request->username,
              'email' => $request->email,
              'phone_number' => $request->phone_number,
+             'name' => $request->firstname . ' ' . $request->lastname,
          ]);
      
          $user->personal->update([
