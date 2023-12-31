@@ -1,6 +1,7 @@
 @extends('layouts.customer-layout')
 
 @section('customer-content')
+<x-success-message></x-success-message>
 @if ($product)
 <div class="flex justify-center items-center">
 <div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-sm md:max-w-6xl justify-center items-center bg-white shadow rounded-lg  dark:bg-gray-800 dark:border-gray-700">
@@ -30,11 +31,16 @@
           @endfor
           <span class="bg-purple-100 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">{{$product->average_rating}}</span>
       </div>
-      <div class="flex items-center justify-between ">
-          <span class="text-3xl font-bold text-gray-900 dark:text-white block">BHD {{$product->price}}</span>
-          <div class=" m-4">
-          <a href="#" class="w-ful text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Add to cart</a>
-          </div>
+      <div class="flex items-center justify-between">
+        <span class="text-3xl font-bold text-gray-900 dark:text-white block">BHD {{$product->price}}</span>
+        <div class="m-4">
+          <form action="{{ route('cart.add', ['product' => $product->id]) }}" method="POST">
+            @csrf
+            <button type="submit" class="w-ful text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+              Add to cart
+            </button>
+          </form>
+        </div>
       </div>
   </div>
 </div>

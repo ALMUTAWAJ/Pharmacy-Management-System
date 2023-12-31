@@ -93,36 +93,40 @@
     </div>
   </div>
 </div>
-@endsection
 
 <script>
   function incrementQuantity(btn) {
     var input = btn.parentNode.querySelector('.quantity-input');
-    var value = parseInt(input.value);
-    value = isNaN(value) ? 1 : value;
-    value++;
-    input.value = value;
+    var productId = input.getAttribute('data-product-id');
+    var quantity = parseInt(input.value);
+    input.value = quantity + 1;
 
-    var productId = input.dataset.productId;
-    updateQuantity(productId, value);
+    updateCartQuantity(productId, quantity + 1, 'increment');
   }
 
   function decrementQuantity(btn) {
     var input = btn.parentNode.querySelector('.quantity-input');
-    var value = parseInt(input.value);
-    value = isNaN(value) ? 1 : value;
-    value < 2 ? value = 1 : value--;
-    input.value = value;
+    var productId = input.getAttribute('data-product-id');
+    var quantity = parseInt(input.value);
+    input.value = quantity - 1;
 
-    var productId = input.dataset.productId;
-    updateQuantity(productId, value);
+    updateCartQuantity(productId, quantity - 1, 'decrement');
   }
 
-  function updateQuantity(productId, quantity) {
-    var url = '/cart/update/' + productId;
+  function updateCartQuantity(productId, quantity, action) {
+    var url;
+    var method;
+
+    if (action === 'increment') {
+      url = '/add-to-cart/' + productId;
+      method = 'POST';
+    } else if (action === 'decrement') {
+      url = '/cart/decrement/' + productId;
+      method = 'POST';
+    }
 
     fetch(url, {
-      method: 'POST',
+      method: method,
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -131,10 +135,16 @@
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Quantity updated successfully.');
+      if (data.success) {
+        // Update the cart HTML if necessary
+        location.reload(); // Refresh the page after successful quantity update
+      } else {
+        console.error('An error occurred while updating the quantity.');
+      }
     })
     .catch(error => {
       console.error('An error occurred while updating the quantity:', error);
     });
   }
 </script>
+@endsection

@@ -4,9 +4,9 @@ use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SupplierController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -161,16 +161,20 @@ Route::middleware(['auth'])->group(function () {
         // Cart routes
         // Temporary session to test the cart
         // To run it, go to the test route
-        Route::get('/test', function () {
-            session()->put('cart', [
-                [
-                    'productID' => 1,
-                    'quantity' => 3,
-                ],
-            ]);
-            $cart = session('cart', []);
-            dump($cart);
-        });
+        // Route::get('/test', function () {
+        //     session()->put('cart', [
+        //         [
+        //             'productID' => 1,
+        //             'quantity' => 3,
+        //         ],
+        //     ]);
+        //     $cart = session('cart', []);
+        //     dump($cart);
+        // });
+        
+        // Route::post('/cart/{productId}/decrement', [CartController::class, 'decrementItem'])->name('cart.decrement');
+        Route::post('add-to-cart/{product}', [CartController::class, 'addItem'])->name('cart.add');
+        Route::post('/cart/decrement/{productId}', 'CartController@decrementItem')->name('cart.decrement');
         Route::get('/customer/cart', [CartController::class, 'showCart'])->name('customer.cart');
         Route::get('/cart/remove/{productId}', [CartController::class, 'removeItem'])->name('cart.remove');
 

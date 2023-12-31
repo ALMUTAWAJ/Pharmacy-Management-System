@@ -5,11 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('web');
+        Session::start();
+    }
+    
+
     public function showCart()
     {
+
         $cart = session('cart', []);
         $totalPrice = 0;
 
@@ -41,5 +50,58 @@ class CartController extends Controller
         }
         
         return redirect()->route('customer.cart');
+    }
+
+    public function addItem(Request $request, $productId)
+    {
+        $product = Product::find($productId);
+
+        $cart = session('cart', []);
+        $found = false;
+
+        foreach ($cart as &$cartItem) {
+            if ($cartItem['productID'] == $productId) {
+                $cartItem['quantity'] += 1;
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            $cartItem = [
+                'productID' => $productId,
+                'quantity' => 1,
+            ];
+            $cart[] = $cartItem;
+        }
+
+        session(['cart' => $cart]);
+
+        return redirect()->back()->with('success', 'Product added to cart successfully.');
+    }
+
+    // TODO -- decrement isnt working 
+    public function decrementItem(Request $request, $productId)
+    {
+        $product = Product::find($productId);
+    
+        $cart = session('cart', []);
+        $found = false;
+    
+        foreach ($cart as &$cartItem) {
+            if ($cartItem['productID'] == $productId) {
+                $cartItem['quantity'] -= 1;
+                if ($cartItem['quantity'] <= 0) {
+                    // Call the removeItem function if the quantity reaches zero
+                    $this->removeItem($productId);
+                }
+                $found = true;
+                break;
+            }
+        }
+    
+        session(['cart' => $cart]);
+    
+        return redirect()->back()->with('success', 'Product quantity updated successfully.');
     }
 }
