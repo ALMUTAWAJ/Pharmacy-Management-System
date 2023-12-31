@@ -49,10 +49,10 @@ class User extends Authenticatable
     ];
 
     // Relationship (Each user has only one personal information)
-public function personal()
-{
-    return $this->hasOne(Personal::class, 'userID', 'id');
-}
+    public function personal()
+    {
+        return $this->hasOne(Personal::class, 'userID', 'id');
+    }
 
     public function orders()
     {
@@ -65,5 +65,8 @@ public function personal()
         return $this->hasMany(LoginAttempt::class, 'userID', 'id');
     }
 
-
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class, 'staffID', 'id');
+    }
 }

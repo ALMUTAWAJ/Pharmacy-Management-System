@@ -66,7 +66,6 @@
                           <select name="role" id="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400" required>
                             <option value="staff">Staff</option> 
                             <option value="admin">Admin</option>
-                            <option value="supplier">Supplier</option>
                             <option value="customer">Customer</option>
                           </select>
                         </div>

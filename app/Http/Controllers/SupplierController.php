@@ -19,7 +19,7 @@ class SupplierController extends Controller
             ],
             'email' => "max:50|required|email|unique:suppliers,email",
             'commercial_register' => 'required|digits:8|unique:suppliers,commercial_register',
-            'phone' => ["required", "regex:/^((00|\+)973 ?)?((3\d|66)\d{6})$/, unique:suppliers,phone"],
+            'phone' => ["required", "regex:/^((00|\+)973 ?)?((3\d|66)\d{6})$/", "unique:suppliers,phone"],
         ];
     }
 
