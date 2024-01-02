@@ -82,9 +82,13 @@
         </select>
       </div>
       <div class="border-t mt-8">
-        <div class="flex font-semibold justify-between py-6 text-sm">
+        <div class="flex font-semibold justify-between pt-6 pb-3 text-sm">
+          <span>Shipping Fee</span>
+          <span>BD 2.0</span>
+        </div>
+        <div class="flex font-semibold justify-between pt-3 pb-6 text-sm">
           <span>Total cost</span>
-          <span>BD {{ $totalPrice }}</span>
+          <span>BD {{ $totalPrice + 2}}</span>
         </div>
         <a href="{{ route('customer.checkout') }}">
           <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white w-full <?php echo empty($cart) ? 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed' : ''; ?>" <?php echo empty($cart) ? 'disabled' : ''; ?>>Checkout</button>
@@ -94,78 +98,7 @@
   </div>
 </div>
 
-{{-- <script>
-  function incrementQuantity(btn) {
-    var input = btn.parentNode.querySelector('.quantity-input');
-    var productId = input.getAttribute('data-product-id');
-    var quantity = parseInt(input.value);
-    input.value = quantity + 1;
-
-    updateCartQuantity(productId, quantity + 1, 'increment');
-  }
-
-  function decrementQuantity(btn) {
-    var input = btn.parentNode.querySelector('.quantity-input');
-    var productId = input.getAttribute('data-product-id');
-    var quantity = parseInt(input.value);
-    input.value = quantity - 1;
-
-    updateCartQuantity(productId, quantity - 1, 'decrement');
-  }
-
-  function updateCartQuantity(productId, quantity, action) {
-    var url;
-    var method;
-
-    if (action === 'increment') {
-      url = '/add-to-cart/' + productId;
-      method = 'POST';
-    } else if (action === 'decrement') {
-      url = '/cart/decrement/' + productId;
-      method = 'POST';
-    }
-
-    fetch(url, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-      },
-      body: JSON.stringify({ quantity: quantity })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Update the cart HTML if necessary
-        location.reload(); // Refresh the page after successful quantity update
-      } else {
-        console.error('An error occurred while updating the quantity.');
-      }
-    })
-    .catch(error => {
-      console.error('An error occurred while updating the quantity:', error);
-    });
-  }
-</script> --}}
 <script>
-  // function incrementQuantity(btn) {
-  //   var input = btn.parentNode.querySelector('.quantity-input');
-  //   var productId = input.getAttribute('data-product-id');
-  //   var quantity = parseInt(input.value);
-  //   input.value = quantity + 1;
-
-  //   updateCartQuantity(productId, quantity + 1, 'increment');
-  // }
-
-  // function decrementQuantity(btn) {
-  //   var input = btn.parentNode.querySelector('.quantity-input');
-  //   var productId = input.getAttribute('data-product-id');
-  //   var quantity = parseInt(input.value);
-  //   input.value = quantity - 1;
-
-  //   updateCartQuantity(productId, quantity - 1, 'decrement');
-  // }
-
   function incrementQuantity(btn) {
   var input = btn.parentNode.querySelector('.quantity-input');
   var productId = input.getAttribute('data-product-id');
