@@ -16,7 +16,7 @@
             </div>
             {{-- success or fail messages --}}
             <div id="success">
-                <x-success-message></x-success-message>
+                <x-success-message></x-success-message> 
             </div>
             <div id="fail">
                 <x-fail-message></x-fail-message>
