@@ -3,7 +3,7 @@
 @section('admin-content')
     <section class="bg-white ">
         <div class="flex justify-end">
-            <x-primary-button>
+            <x-primary-button id="print">
                 <svg fill="#ffffff" width="25px" height="25px" viewBox="0 0 32 32" version="1.1"
                     xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -54,8 +54,8 @@
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">suppliers</a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.classic-report', 'suppliers') }}"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">**  reset of the tables ***</a>
+                            <a href="{{ route('admin.classic-report', 'payments') }}"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">payments</a>
                         </li>
                     </ul>
                 </div>
@@ -66,25 +66,29 @@
         </div>
 
 {{--  --}}
-@if ($users->isNotEmpty())
+<div class="content">
+    @if ($users->isNotEmpty())
     {{-- table start --}}
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div id="printableArea" class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         @foreach($columns as $value)
                         <th scope="col" class="px-6 py-3">
                             {{ $value }}
-                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path opacity="0.5" d="M16 18L16 6M16 6L20 10.125M16 6L12 10.125" stroke="#919191"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M8 6L8 18M8 18L12 13.875M8 18L4 13.875" stroke="#919191" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                </g>
-                            </svg>
+                            {{-- <a href="{{ route('admin.classic-report', ['table' => $model->getTable(), 'column' => $columns]) }}">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path opacity="0.5" d="M16 18L16 6M16 6L20 10.125M16 6L12 10.125" stroke="#919191"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M8 6L8 18M8 18L12 13.875M8 18L4 13.875" stroke="#919191" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </g>
+                                </svg>
+                            </a> --}}
+                            
                         </th>
                         @endforeach
                     </tr>
@@ -101,16 +105,19 @@
             </table>
         </div>
 @else
+</div>
+
+
 <x-title scope="col" colspan="3" class="px-6 py-3">Data not found</x-title>
 @endif
         {{-- end of table --}}
 
         {{-- paggintion --}}
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <div class="flex flex-col items-center">
                 <!-- Help text -->
                 <span class="text-sm text-gray-700 dark:text-gray-400">
-                    Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span
+                    Showing <span class="font-semibold text-gray-900 dark:text-white"></span> to <span
                         class="font-semibold text-gray-900 dark:text-white">10</span> of <span
                         class="font-semibold text-gray-900 dark:text-white">100</span> Entries
                 </span>
@@ -126,6 +133,91 @@
                     </button>
                 </div>
             </div>
+        </div> --}}
+
+        {{-- <div class="mt-4">
+            <div class="flex flex-col items-center">
+                <!-- Help text -->
+                <span class="text-sm text-gray-700 dark:text-gray-400">
+                    Showing <span class="font-semibold text-gray-900 dark:text-white">{{ $users->firstItem() }}</span> to <span class="font-semibold text-gray-900 dark:text-white">{{ $users->lastItem() }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ $users->total() }}</span> Entries
+                </span>
+                <!-- Buttons -->
+                <div class="inline-flex mt-2 xs:mt-0">
+                    @if ($users->onFirstPage())
+                        <!-- Disable the "Previous" button when on the first page -->
+                        <button
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed"
+                            disabled>
+                            Prev
+                        </button>
+                    @else
+                        <!-- Enable the "Previous" button with the appropriate URL for the previous page -->
+                        <a href="{{ $users->previousPageUrl() }}"
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            Prev
+                        </a>
+                    @endif
+        
+                    @if ($users->hasMorePages())
+                        <!-- Enable the "Next" button with the appropriate URL for the next page -->
+                        <a href="{{ $users->nextPageUrl() }}"
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            Next
+                        </a>
+                    @else
+                        <!-- Disable the "Next" button when on the last page -->
+                        <button
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed"
+                            disabled>
+                            Next
+                        </button>
+                    @endif
+                </div>
+            </div>
+        </div> --}}
+        <div class="mt-4">
+            <div class="flex flex-col items-center">
+                <!-- Help text -->
+                <span class="text-sm text-gray-700 dark:text-gray-400">
+                    Showing <span class="font-semibold text-gray-900 dark:text-white">{{ $users->firstItem() }}</span> to <span class="font-semibold text-gray-900 dark:text-white">{{ $users->lastItem() }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ $users->total() }}</span> Entries
+                </span>
+                <!-- Buttons -->
+                <div class="inline-flex mt-2 xs:mt-0">
+                    @if ($users->onFirstPage())
+                        <!-- Disable the "Previous" button when on the first page -->
+                        <button
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed"
+                            disabled>
+                            Prev
+                        </button>
+                    @else
+                        <!-- Enable the "Previous" button with the appropriate URL for the previous page -->
+                        <a href="{{ $users->previousPageUrl() }}"
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            Prev
+                        </a>
+                    @endif
+        
+                    @if ($users->hasMorePages())
+                        <!-- Enable the "Next" button with the appropriate URL for the next page -->
+                        <a href="{{ $users->nextPageUrl() }}"
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            Next
+                        </a>
+                    @else
+                        <!-- Disable the "Next" button when on the last page -->
+                        <button
+                            class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed"
+                            disabled>
+                            Next
+                        </button>
+                    @endif
+                </div>
+            </div>
         </div>
+
+
+
     </section>
 @endsection
+

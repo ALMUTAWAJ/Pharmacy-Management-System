@@ -100,6 +100,7 @@ Route::middleware(['auth'])->group(function () {
         // })->name('admin.interactive-report');
         // classic report
         Route::get('/admin/classic-report/{tableName}', [ClassicReportController::class, 'index'])->name('admin.classic-report');
+        // Route::get('/classic-report/{table}/{column}', 'ClassicReportController@sort')->name('admin.classic-report');
         // Route::get('/admin/classic-report/{tableName}', [ClassicReportController::class, 'getTableData']);
 
         // Manage Supplier Routes (Admin)
@@ -112,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('admin/stock-requests', [StockRequestController::class, 'showListInReport'])->name('admin.view.stock_requests');
         Route::get('admin/stock-request/detail/{id}', [StockRequestController::class, 'detailInReport'])->name('admin.view.stock_request_detail');
+
         
     });
 

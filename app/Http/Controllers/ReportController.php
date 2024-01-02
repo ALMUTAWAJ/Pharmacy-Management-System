@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -47,7 +48,6 @@ class ReportController extends Controller
             $calcPercentage = ($revenue / $totalValueSum) * 100;
            $item->percentage = $calcPercentage;
         }
-        //dd($categoryRevenuePercentage);
 
         // heighest rating products
         
@@ -62,11 +62,25 @@ class ReportController extends Controller
             JOIN products P ON subquery.productID = P.id
             ORDER BY average_rate DESC
         ');
-        // dd($heighRate);
         //take first three images: 
-        $heighimages = [$heighRate[0]->image, $heighRate[1]->image, $heighRate[2]->image];
-        // dd($heighimages);
+        // $heighimages = [$heighRate[0]->image, $heighRate[1]->image, $heighRate[2]->image];
+        $heighOrders = DB::select('
+    SELECT COUNT(OD.orderID) AS order_count, P.*
+    FROM order_details OD
+    INNER JOIN products P ON OD.productID = P.id
+    GROUP BY OD.productID
+    ORDER BY order_count DESC
+');
 
+if(!empty($heighOrders)) {
+    $heighOrderCount = $heighOrders[0]->order_count;
+    $heighimages = [$heighOrders[0]->image];
+} else {
+    $heighOrderCount = 0;
+    $heighimages = [];
+}
+
+  
         // return in reprot view
         return view('pages.admin.report', 
         ['customers' =>$customers,
@@ -77,5 +91,6 @@ class ReportController extends Controller
          'categoryRevenuePercentage' => $categoryRevenuePercentage,
          'heighimages' => $heighimages
          ]);
+
     }
 }

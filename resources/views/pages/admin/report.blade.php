@@ -40,7 +40,7 @@
         <div class="flex justify-center">
             <svg width="30px" height="30px" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g clip-path="url(#clip0_14_1995)"> <path d="M27.865 31.758C33.5972 31.758 38.244 27.1112 38.244 21.379C38.244 15.6468 33.5972 11 27.865 11C22.1328 11 17.486 15.6468 17.486 21.379C17.486 27.1112 22.1328 31.758 27.865 31.758Z" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M40 36.346C37.0313 33.3973 33.0142 31.7466 28.83 31.756H26.9C22.6831 31.756 18.6388 33.4312 15.657 36.413C12.6752 39.3948 11 43.4391 11 47.656V52.516H44.73V51.756" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M48.621 38.146V46.123" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M52.609 42.134H44.632" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> </g> <defs> <clipPath id="clip0_14_1995"> <rect width="45.609" height="45.516" fill="white" transform="translate(9 9)"></rect> </clipPath> </defs> </g></svg>
         </div>
-        <div>
+        <div>  
             <p class="text-md text-indigo-500 font-bold text-center">{{$customers}}</p>
         </div>
         <div>
@@ -151,10 +151,15 @@
           document.addEventListener("alpine:init", () => {
             Alpine.data("imageSlider", () => ({
               currentIndex: 1,
-              images: [
-                '/images/{{$heighimages[0]}}',
-                '/images/{{$heighimages[1]}}',
-                '/images/{{$heighimages[2]}}',
+            //   images: [
+            //     '/images/{{$heighimages[0]}}',
+            //     '/images/{{$heighimages[1]}}',
+            //     '/images/{{$heighimages[2]}}',
+            //   ],
+            images: [
+                '/images/img1.png',
+                '/images/img2.png',
+                '/images/img3.png',
               ],
               previous() {
                 if (this.currentIndex > 1) {
@@ -171,7 +176,6 @@
       </script>
     <!--  end slider script -->
   
-  
       <!--  srart chart script -->
       <script type="text/javascript">
           $(function() {
@@ -187,7 +191,6 @@
   
       <!--  end chart script --> 
     </div>
-
 
 
   @endsection

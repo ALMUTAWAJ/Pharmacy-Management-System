@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
+
+use Illuminate\View\View;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,25 +21,49 @@ class ClassicReportController extends Controller
 {
     $columns = [];
     $users = null;
-
+  
     if ($tableName === 'users') {
         $columns = ['id', 'username', 'name', 'phone_number', 'email', 'role'];
-        $users = User::select($columns)->get();
+        // $users = User::select($columns)->paginate(3)->get();
+        $users = User::paginate(10);
     } else if ($tableName === 'products') {
         $columns = ['id', 'name', 'price', 'category', 'description', 'prescription_req', 'supplierID', 'stock', 'exp_date'];
-        $users = Product::select($columns)->get(); 
+        $users = Product::paginate(10);
     } else if ($tableName === 'orders') {
         $columns = ['id', 'customerID', 'total_price', 'status'];
-        $users = Order::select($columns)->get(); 
+        $users = Order::paginate(10);
     }
     else if ($tableName === 'suppliers') {
         $columns = ['id', 'company_name', 'commercial_register', 'email', 'phone'];
-        $users = Supplier::select($columns)->get(); 
+        $users = Supplier::paginate(10);
+    }
+    else if ($tableName === 'payments') {
+        $columns = ['id', 'status', 'amount', 'transaction', 'phone'];
+        $users = Payment::paginate(10);
     }
     // rest of the tables
 
     return view('pages.admin.classic-report', ['columns' => $columns, 'users' => $users]);
 }
+
+    // public function sort($tableName, $columnName){
+
+    //     if ($tableName === 'users') {
+    //         $columns = ['id', 'username', 'name', 'phone_number', 'email', 'role'];
+    //         $users = User::select($columns)->orderBy($columnName)->get();
+    //     } else if ($tableName === 'products') {
+    //         $columns = ['id', 'name', 'price', 'category', 'description', 'prescription_req', 'supplierID', 'stock', 'exp_date'];
+    //         $users = Product::select($columns)->orderBy($columnName)->get(); 
+    //     } else if ($tableName === 'orders') {
+    //         $columns = ['id', 'customerID', 'total_price', 'status'];
+    //         $users = Order::select($columns)->orderBy($columnName)->get(); 
+    //     }
+    //     else if ($tableName === 'suppliers') {
+    //         $columns = ['id', 'company_name', 'commercial_register', 'email', 'phone'];
+    //         $users = Supplier::select($columns)->orderBy($columnName)->get(); 
+    //     }
+    //     return view('pages.admin.classic-report', ['columns' => $columns, 'users' => $users]);
+    // }
 
 
 
