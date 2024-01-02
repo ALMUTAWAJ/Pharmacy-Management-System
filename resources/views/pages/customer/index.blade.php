@@ -133,27 +133,6 @@
         </div>
     @endif
 
-    {{-- customer reviews  --}}
-    @if (isset ($customerReviews))
-        <x-title>{{ __('Customer Reviews') }}</x-title>
-        <!-- component -->
-        <div class="flex flex-col bg-white m-auto p-auto">
-            <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
-                <div class="flex flex-nowrap">
-                    @for ($i = 0; $i < 7 && $i < count($customerReviews); $i++)
-                        <div class="inline-block px-3">
-                            <x-card id="{{ $customerReviews[$i]->id }}" image="{{ $customerReviews[$i]->image }}"
-                                name="{{ $customerReviews[$i]->name }}"
-                                description="{{ Str::limit($customerReviews[$i]->description, 60) }}"
-                                price="{{ $customerReviews[$i]->price }}"
-                                rate="{{ number_format($customerReviews[$i]->average_rating, 1) }}" />
-                        </div>
-                    @endfor
-                </div>
-            </div>
-        </div>
-    @endif
-    {{-- end customer reviews  --}}
     <style>
         .hide-scroll-bar {
             -ms-overflow-style: none;

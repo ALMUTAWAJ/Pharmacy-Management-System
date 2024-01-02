@@ -178,7 +178,7 @@ Route::middleware(['auth'])->group(function () {
         //     dump($cart);
         // });
         
-        // Route::post('/cart/{productId}/decrement', [CartController::class, 'decrementItem'])->name('cart.decrement');
+
         Route::post('add-to-cart/{product}', [CartController::class, 'addItem'])->name('cart.add');
         Route::post('/cart/decrement/{productId}', [CartController::class, 'decrementItem'])->name('cart.decrement');
         Route::post('/cart/newDecrement/{productId}', [CartController::class, 'newDecrementItem'])->name('cart.newDecrement');
@@ -207,7 +207,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    Route::get('/customer/products', [ProductController::class, 'index']);
+    Route::get('/customer/products', [ProductController::class, 'index'])->name('customer.products.index');
     Route::get('/customer/products/{id}', [ProductController::class, 'show']);
 
     // Route::get('/customer/details', function () {

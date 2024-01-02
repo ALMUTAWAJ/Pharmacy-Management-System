@@ -94,49 +94,53 @@ class CheckoutController extends Controller
     }
 
 
+
     public function updateAddressInfo(Request $request)
-{
-    $user = User::find($request->user()->id);
-    $selectedAddressId = $request->input('address-id');
-    session(['selected_address_id' => $selectedAddressId]);
+    {
+        $user = User::find($request->user()->id);
+        $selectedAddressId = $request->input('address-id');
+        session(['selected_address_id' => $selectedAddressId]);
 
-    if ($user) {
-        $rules = [
-            'city' => ['string', 'max:255'],
-            'house' => ['string', 'max:255'],
-            'road' => ['string', 'max:255'],
-            'block' => ['string', 'max:255'],
-        ];
+        if ($user) {
+            $rules = [
+                'city' => ['string', 'max:255'],
+                'house' => ['string', 'max:255'],
+                'road' => ['string', 'max:255'],
+                'block' => ['string', 'max:255'],
+            ];
 
-        $inputs = $request->only(array_keys($rules));
+            $inputs = $request->only(array_keys($rules));
 
-        // Check if all fields are empty
-        if (count(array_filter($inputs)) !== 0) {
-            $validator = Validator::make($inputs, $rules);
+            // Check if all fields are empty
+            if (count(array_filter($inputs)) !== 0) {
+                $validator = Validator::make($inputs, $rules);
 
-            if ($validator->passes()) {
-                $personal = Personal::where('userID', $user->id)->first();
+                if ($validator->passes()) {
+                    $personal = Personal::where('userID', $user->id)->first();
 
-                if ($personal) {
-                    $personal->addresses()->create([
-                        'city' => $request->city,
-                        'house' => $request->house,
-                        'road' => $request->road,
-                        'block' => $request->block,
-                    ]);
+                    if ($personal) {
+                        $address = $personal->addresses()->create([
+                            'city' => $request->city,
+                            'house' => $request->house,
+                            'road' => $request->road,
+                            'block' => $request->block,
+                        ]);
 
-                    return redirect()->back();
+                        // Set the newly created address as the selected one
+                        session(['selected_address_id' => $address->id]);
+
+                        return redirect()->back();
+                    }
                 }
+
+                return redirect()->back()->withErrors($validator);
             }
 
-            return redirect()->back()->withErrors($validator);
+            return redirect()->back();
         }
 
         return redirect()->back();
     }
-
-    return redirect()->back();
-}
 
 
 public function placeOrder(Request $request)

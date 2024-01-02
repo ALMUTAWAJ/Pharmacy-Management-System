@@ -126,20 +126,32 @@
       <div class="relative mt-4">
         <label class="block cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
           <div class="flex items-center justify-between">
-            <span class="mt-2 ml-5 font-semibold">Address</span>
-            <a href="#" class="text-blue-500 text-sm leading-6" data-modal-toggle="address-modal">Change</a>
+              <span class="mt-2 ml-5 font-semibold">Address</span>
+              <a href="#" class="text-blue-500 text-sm leading-6" data-modal-toggle="address-modal">Change</a>
           </div>
           <div class="ml-5">
-            {{-- <div class="flex">
-              <p class="text-slate-500 text-sm leading-6">City : {{ $user->personal->addresses->city }}</p>
-              <p class="text-slate-500 text-sm leading-6 ml-28">House : {{ $user->personal->address->house }}</p>
-            </div>
-            <div class="flex">
-              <p class="text-slate-500 text-sm leading-6">Road : {{ $user->personal->address->road }}</p>
-              <p class="text-slate-500 text-sm leading-6 ml-28">Block : {{ $user->personal->address->block }}</p>
-            </div> --}}
+              @if ($user->personal->addresses->isEmpty())
+                  <p class="text-slate-500 text-sm leading-6">No address found.</p>
+              @else
+                  @php
+                      $selectedAddressId = session('selected_address_id', $user->personal->address_id);
+                      $selectedAddress = $user->personal->addresses->firstWhere('id', $selectedAddressId);
+                  @endphp
+                  @if ($selectedAddress)
+                      <div class="flex">
+                          <p class="text-slate-500 text-sm leading-6">City: {{ $selectedAddress->city }}</p>
+                          <p class="text-slate-500 text-sm leading-6 ml-28">House: {{ $selectedAddress->house }}</p>
+                      </div>
+                      <div class="flex">
+                          <p class="text-slate-500 text-sm leading-6">Road: {{ $selectedAddress->road }}</p>
+                          <p class="text-slate-500 text-sm leading-6 ml-28">Block: {{ $selectedAddress->block }}</p>
+                      </div>
+                  @else
+                      <p class="text-slate-500 text-sm leading-6">No address selected.</p>
+                  @endif
+              @endif
           </div>
-        </label>
+      </label>
       </div>
       <!-- Address modal -->
       <div id="address-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
