@@ -20,7 +20,6 @@ class CartController extends Controller
     {
         $cart = session('cart', []);
         $totalPrice = 0;
-        // dd($cart);
         foreach ($cart as $cartItem) {
             $product = Product::find($cartItem['productID']);
 
@@ -51,6 +50,7 @@ class CartController extends Controller
         return redirect()->route('customer.cart');
     }
 
+
     public function addItem(Request $request, $productId)
     {
         $product = Product::find($productId);
@@ -59,19 +59,31 @@ class CartController extends Controller
         $found = false;
         
         foreach ($cart as &$cartItem) {
-            if ($cartItem['productID'] == $productId && $cartItem['quantity'] < $product->stock) {
-                $cartItem['quantity']++;
-                $found = true;
-                break;
+            if ($cartItem['productID'] == $productId) {
+                if ($cartItem['quantity'] < $product->stock) {
+                    $cartItem['quantity']++;
+                    $found = true;
+                    break;
+                } else {
+                    return redirect()->back()->with('fail', 'The product is out of stock.');
+                }
             }
         }
         
         if (!$found) {
-            $newCartItem = [
-                'productID' => $productId,
-                'quantity' => 1,
-            ];
-            $cart[] = $newCartItem;
+            if ($product->stock > 0) {
+                $newCartItem = [
+                    'productID' => $productId,
+                    'quantity' => 1,
+                ];
+                if ($newCartItem['quantity'] <= $product->stock) {
+                    $cart[] = $newCartItem;
+                } else {
+                    return redirect()->back()->with('fail', 'The product is out of stock.');
+                }
+            } else {
+                return redirect()->back()->with('fail', 'The product is out of stock.');
+            }
         }
         
         session(['cart' => $cart]);
@@ -79,28 +91,26 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Product added to cart successfully.');
     }
 
-    // TODO -- decrement isnt working 
-    public function decrementItem(Request $request, $productId)
+
+    public function newDecrementItem(Request $request, $productId)
     {
-        $product = Product::find($productId);
-    
         $cart = session('cart', []);
-        $found = false;
-    
+        
         foreach ($cart as &$cartItem) {
-            if ($cartItem['productID'] == $productId) {
-                $cartItem['quantity'] -= 1;
+            if ($cartItem['productID'] === $productId) {
+                $cartItem['quantity']--;
+                
                 if ($cartItem['quantity'] <= 0) {
-                    // Call the removeItem function if the quantity reaches zero
                     $this->removeItem($productId);
+                    return redirect()->route('customer.cart')->with('success', 'Product removed from cart.');
                 }
-                $found = true;
+                
                 break;
             }
         }
-    
+        
         session(['cart' => $cart]);
-    
+        
         return redirect()->back()->with('success', 'Product quantity updated successfully.');
     }
 }

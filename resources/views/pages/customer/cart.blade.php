@@ -94,7 +94,7 @@
   </div>
 </div>
 
-<script>
+{{-- <script>
   function incrementQuantity(btn) {
     var input = btn.parentNode.querySelector('.quantity-input');
     var productId = input.getAttribute('data-product-id');
@@ -122,6 +122,81 @@
       method = 'POST';
     } else if (action === 'decrement') {
       url = '/cart/decrement/' + productId;
+      method = 'POST';
+    }
+
+    fetch(url, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      },
+      body: JSON.stringify({ quantity: quantity })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Update the cart HTML if necessary
+        location.reload(); // Refresh the page after successful quantity update
+      } else {
+        console.error('An error occurred while updating the quantity.');
+      }
+    })
+    .catch(error => {
+      console.error('An error occurred while updating the quantity:', error);
+    });
+  }
+</script> --}}
+<script>
+  // function incrementQuantity(btn) {
+  //   var input = btn.parentNode.querySelector('.quantity-input');
+  //   var productId = input.getAttribute('data-product-id');
+  //   var quantity = parseInt(input.value);
+  //   input.value = quantity + 1;
+
+  //   updateCartQuantity(productId, quantity + 1, 'increment');
+  // }
+
+  // function decrementQuantity(btn) {
+  //   var input = btn.parentNode.querySelector('.quantity-input');
+  //   var productId = input.getAttribute('data-product-id');
+  //   var quantity = parseInt(input.value);
+  //   input.value = quantity - 1;
+
+  //   updateCartQuantity(productId, quantity - 1, 'decrement');
+  // }
+
+  function incrementQuantity(btn) {
+  var input = btn.parentNode.querySelector('.quantity-input');
+  var productId = input.getAttribute('data-product-id');
+  var quantity = parseInt(input.value);
+  
+  if (quantity >= 0) {
+    input.value = quantity + 1;
+    updateCartQuantity(productId, quantity + 1, 'increment');
+  }
+}
+
+function decrementQuantity(btn) {
+  var input = btn.parentNode.querySelector('.quantity-input');
+  var productId = input.getAttribute('data-product-id');
+  var quantity = parseInt(input.value);
+  
+  if (quantity > 0) {
+    input.value = quantity - 1;
+    updateCartQuantity(productId, quantity - 1, 'decrement');
+  }
+}
+
+  function updateCartQuantity(productId, quantity, action) {
+    var url;
+    var method;
+
+    if (action === 'increment') {
+      url = '/add-to-cart/' + productId;
+      method = 'POST';
+    } else if (action === 'decrement') {
+      url = '/cart/newDecrement/' + productId;
       method = 'POST';
     }
 

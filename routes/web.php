@@ -174,7 +174,8 @@ Route::middleware(['auth'])->group(function () {
         
         // Route::post('/cart/{productId}/decrement', [CartController::class, 'decrementItem'])->name('cart.decrement');
         Route::post('add-to-cart/{product}', [CartController::class, 'addItem'])->name('cart.add');
-        Route::post('/cart/decrement/{productId}', 'CartController@decrementItem')->name('cart.decrement');
+        Route::post('/cart/decrement/{productId}', [CartController::class, 'decrementItem'])->name('cart.decrement');
+        Route::post('/cart/newDecrement/{productId}', [CartController::class, 'newDecrementItem'])->name('cart.newDecrement');
         Route::get('/customer/cart', [CartController::class, 'showCart'])->name('customer.cart');
         Route::get('/cart/remove/{productId}', [CartController::class, 'removeItem'])->name('cart.remove');
 

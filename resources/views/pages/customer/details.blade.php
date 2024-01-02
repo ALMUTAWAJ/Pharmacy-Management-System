@@ -1,7 +1,17 @@
 @extends('layouts.customer-layout')
 
 @section('customer-content')
-<x-success-message></x-success-message>
+            {{-- Errors will be shown here --}}
+            <div id="errors">
+              <x-errors></x-errors>
+          </div>
+          {{-- success or fail messages --}}
+          <div id="success">
+              <x-success-message></x-success-message>
+          </div>
+          <div id="fail">
+              <x-fail-message></x-fail-message>
+          </div>
 @if ($product)
 <div class="flex justify-center items-center">
 <div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-sm md:max-w-6xl justify-center items-center bg-white shadow rounded-lg  dark:bg-gray-800 dark:border-gray-700">
