@@ -22,6 +22,7 @@
             name="{{ $product->name }}"
              description="{{  Str::limit($product->description, 60)  }}" 
              price="{{$product->price}}"
+             stock="{{$product->stock}}"
              rate="{{ number_format($product->average_rating, 1) }}"
             />
             @endforeach

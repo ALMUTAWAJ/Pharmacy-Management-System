@@ -8,7 +8,7 @@
                     <a href="{{ route('home') }}"
                         class="flex items-center mb-6 text-2xl font-semibold text-gray-900 white:text-white">
                         <x-application-logo></x-application-logo>
-                        <h5 class="ml-5">Fake Pharmacy</h5>
+                        <h5 class="ml-5">Pharmacy</h5>
                     </a>
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                         Sign in to your account

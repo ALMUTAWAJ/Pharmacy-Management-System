@@ -45,7 +45,7 @@
           </div>
           <div class="flex flex-col justify-between ml-4 flex-grow">
             <span class="font-bold text-sm">{{ $product->name }}</span>
-            <span class="text-red-500 text-xs">{{ $product->category }}</span>
+            <span class="font-bold text-purple-500 text-xs">{{ $product->category }}</span>
             <a href="{{ route('cart.remove', $cartItem['productID']) }}" class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a>
           </div>
         </div>
