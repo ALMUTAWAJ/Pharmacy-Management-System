@@ -16,6 +16,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockRequestController;
+use App\Http\Controllers\ClassicReportController;
 use Illuminate\Support\Facades\Session;
 
 /*
@@ -94,10 +95,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 
-        Route::get('/admin/interactive/report', function () {
-            return view('pages.admin.interactive-report');
-        })->name('admin.interactive-report');
-
+        // Route::get('/admin/interactive/report', function () {
+        //     return view('pages.admin.interactive-report');
+        // })->name('admin.interactive-report');
+        // classic report
+        Route::get('/admin/classic-report/{tableName}', [ClassicReportController::class, 'index'])->name('admin.classic-report');
+        // Route::get('/admin/classic-report/{tableName}', [ClassicReportController::class, 'getTableData']);
 
         // Manage Supplier Routes (Admin)
         Route::get('admin/supplier/add', [SupplierController::class, 'add'])->name('admin.add.supplier');

@@ -1,6 +1,6 @@
 <div class="w-56 h-auto flex flex-col items-center justify-items-center max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-2">
   <a href="details/{{$id}}">
-    <img class="p-2 rounded-t-lg h-48" src="/images/{{ $image }}" alt="product image" />
+      <img class="p-2 rounded-t-lg h-48" src="/products-images/{{ $image }}" alt="product image" />
   </a>
   <div class="px-5 pb-2">
     <a href="#">

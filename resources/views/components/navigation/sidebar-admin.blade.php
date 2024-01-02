@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/interactive/report"
+                <a href="/admin/classic-report/users"
                     class="flex items-center p-2 text-purple-900 rounded-lg dark:text-white hover:bg-purple-100 dark:hover:bg-purple-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-purple-500 transition duration-75 dark:text-purple-400 group-hover:text-purple-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
