@@ -84,13 +84,13 @@
     <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
       {{-- icon --}}
       <div class="flex items-center justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'medicine']) }}">
           <img class="p-2 rounded-lg h-12" src="/images/category/medicine.svg" alt="medicine icon" />
         </a>
       </div>
       {{-- title --}}
       <div class="px-5 pb-5 flex justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'medicine']) }}">
           <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Medicine</h5>
         </a>
       </div>
@@ -100,13 +100,13 @@
     <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
       {{-- icon --}}
       <div class="flex items-center justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'beauty']) }}">
           <img class="p-2 rounded-lg h-12" src="/images/category/beauty.svg" alt="beauty icon" />
         </a>
       </div>
       {{-- title --}}
       <div class="px-5 pb-5 flex justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'beauty']) }}">
           <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Beauty</h5>
         </a>
       </div>
@@ -116,13 +116,13 @@
     <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
       {{-- icon --}}
       <div class="flex items-center justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'Baby Care']) }}">
           <img class="p-2 rounded-lg h-12" src="/images/category/baby-care.svg" alt="baby care icon" />
         </a>
       </div>
       {{-- title --}}
       <div class="px-5 pb-5 flex justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'Baby Care']) }}">
           <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Baby care</h5>
         </a>
       </div>
@@ -132,13 +132,13 @@
     <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
       {{-- icon --}}
       <div class="flex items-center justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'Personal Care']) }}">
           <img class="p-2 rounded-lg h-12" src="/images/category/personal-care.svg" alt="personal care icon" />
         </a>
       </div>
       {{-- title --}}
       <div class="px-5 pb-5 flex justify-center">
-        <a href="#">
+        <a href="{{ route('customer.products.index', ['category' => 'Personal Care']) }}">
           <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Personal care</h5>
         </a>
       </div>
