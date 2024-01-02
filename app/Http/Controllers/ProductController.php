@@ -50,37 +50,29 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
-            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
-            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image')
+            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
+            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock')
             ->get();
-
-
-
-
-        return view(
-            'pages.customer.products',
-            [
-                'products' => $products,
-            ]
-        );
+    
+        return view('pages.customer.products', [
+            'products' => $products,
+        ]);
     }
+
     /**
      * Display list of product in product page filtered by category
      */
     public function showCategory(string $category)
     {
         $products = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
-            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
-            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image')
+            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
+            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock')
             ->where('category', $category)
             ->get();
 
-        return view(
-            'pages.customer.products',
-            [
-                'products' => $products,
-            ]
-        );
+        return view('pages.customer.products', [
+            'products' => $products,
+        ]);
     }
 
 
@@ -105,22 +97,14 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-
-
         $product = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
-            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.category', 'products.prescription_req', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
-            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.category', 'products.prescription_req')
+            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.category', 'products.prescription_req', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
+            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.category', 'products.prescription_req', 'products.stock')
             ->find($id);
-
-        // $product = Product::where('category', $id)->get();
-
-        return view(
-            'pages.customer.details',
-            [
-                'product' => $product,
-
-            ]
-        );
+    
+        return view('pages.customer.details', [
+            'product' => $product,
+        ]);
     }
 
     /**

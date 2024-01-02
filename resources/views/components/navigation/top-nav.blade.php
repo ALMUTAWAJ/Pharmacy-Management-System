@@ -30,9 +30,12 @@
                   <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-700 md:p-0 dark:text-white md:dark:hover:text-purple-500 dark:hover:bg-gray-700 dark:hover:text-purple-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">All Products</a>
               </li>
               <li>
-                  <button id="mega-menu-full-dropdown-button" data-collapse-toggle="mega-menu-full-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4  text-gray-900 rounded md:w-auto hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-600 md:p-0 dark:text-white md:dark:hover:text-purple-500 dark:hover:bg-gray-700 dark:hover:text-purple-500 md:dark:hover:bg-transparent dark:border-gray-700">Category <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-              </svg></button>
+                <button id="mega-menu-full-dropdown-button" data-collapse-toggle="mega-menu-full-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded md:w-auto hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-purple-600 md:p-0 dark:text-white md:dark:hover:text-purple-500 dark:hover:bg-gray-700 dark:hover:text-purple-500 md:dark:hover:bg-transparent dark:border-gray-700">
+                  Category
+                  <svg id="mega-menu-full-dropdown-icon" class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                  </svg>
+                </button>
               </li>
               <li>
                   <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-700 md:p-0 dark:text-white md:dark:hover:text-purple-500 dark:hover:bg-gray-700 dark:hover:text-purple-500 md:dark:hover:bg-transparent dark:border-gray-700">Filter</a>
@@ -74,27 +77,85 @@
           </ul>
       </div>
   </div>
-  {{-- category --}}
-  <div id="mega-menu-full-dropdown" class="mt-1 shadow-sm  md:bg-white dark:bg-gray-800 dark:border-gray-600">
-    <div class="grid md:grid-cols-3 gap-6 text-gray-900 dark:text-white">
-      {{-- list left --}}
-      @for ($i = 1; $i < 10; $i++)
-      <div class="flex bg-gray-100 rounded-lg items-center justify-center sm:mt-2">
-        {{-- icon --}}
-        <div class=" flex items-center justify-center ">
-          <a href="#">
-            <img class="p-2 rounded-t-lg h-16" src="/images/category/baby-care.svg" alt="product image" />
-          </a>
-        </div>
-        {{-- title --}}
-      <div class="px-5 pb-5 flex justify-center ">
-          <a href="#">
-              <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Category</h5>
-          </a>
+{{-- category --}}
+<div id="mega-menu-full-dropdown" class="hidden mt-1 shadow-sm md:bg-white dark:bg-gray-800 dark:border-gray-600">
+  <div class="grid md:grid-cols-3 gap-6 text-gray-900 dark:text-white">
+    {{-- Medicine --}}
+    <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
+      {{-- icon --}}
+      <div class="flex items-center justify-center">
+        <a href="#">
+          <img class="p-2 rounded-lg h-12" src="/images/category/medicine.svg" alt="medicine icon" />
+        </a>
       </div>
+      {{-- title --}}
+      <div class="px-5 pb-5 flex justify-center">
+        <a href="#">
+          <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Medicine</h5>
+        </a>
       </div>
-      @endfor
+    </div>
+
+    {{-- Beauty --}}
+    <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
+      {{-- icon --}}
+      <div class="flex items-center justify-center">
+        <a href="#">
+          <img class="p-2 rounded-lg h-12" src="/images/category/beauty.svg" alt="beauty icon" />
+        </a>
       </div>
+      {{-- title --}}
+      <div class="px-5 pb-5 flex justify-center">
+        <a href="#">
+          <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Beauty</h5>
+        </a>
+      </div>
+    </div>
+
+    {{-- Baby care --}}
+    <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
+      {{-- icon --}}
+      <div class="flex items-center justify-center">
+        <a href="#">
+          <img class="p-2 rounded-lg h-12" src="/images/category/baby-care.svg" alt="baby care icon" />
+        </a>
+      </div>
+      {{-- title --}}
+      <div class="px-5 pb-5 flex justify-center">
+        <a href="#">
+          <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Baby care</h5>
+        </a>
+      </div>
+    </div>
+
+    {{-- Personal care --}}
+    <div class="flex bg-gray-100 rounded-t-lg items-center justify-center sm:mt-2">
+      {{-- icon --}}
+      <div class="flex items-center justify-center">
+        <a href="#">
+          <img class="p-2 rounded-lg h-12" src="/images/category/personal-care.svg" alt="personal care icon" />
+        </a>
+      </div>
+      {{-- title --}}
+      <div class="px-5 pb-5 flex justify-center">
+        <a href="#">
+          <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Personal care</h5>
+        </a>
+      </div>
+    </div>
   </div>
-  
+</div>
+
+<script>
+  const button = document.getElementById('mega-menu-full-dropdown-button');
+  const dropdown = document.getElementById('mega-menu-full-dropdown');
+  const icon = document.getElementById('mega-menu-full-dropdown-icon');
+
+  button.addEventListener('click', function() {
+    dropdown.classList.toggle('hidden');
+    icon.classList.toggle('rotate-180');
+  });
+</script>
+
+
 </nav>
