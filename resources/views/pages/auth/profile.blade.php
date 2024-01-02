@@ -187,7 +187,7 @@
 
 
 
-            <form id="address_selection" method="GET" action="{{ route('fetch.address') }}">
+            <form class="hidden" id="address_selection" method="GET" action="{{ route('fetch.address') }}">
                 <div>
                     <label for="address_select" class="block mb-2 text-sm font-medium text-gray-900">Select
                         address</label>
