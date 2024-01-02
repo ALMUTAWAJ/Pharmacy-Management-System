@@ -1,41 +1,47 @@
 @extends('layouts.customer-layout')
 
 @section('customer-content')
-            {{-- Errors will be shown here --}}
-            <div id="errors">
-              <x-errors></x-errors>
-          </div>
-          {{-- success or fail messages --}}
-          <div id="success">
-              <x-success-message></x-success-message>
-          </div>
-          <div id="fail">
-              <x-fail-message></x-fail-message>
-          </div>
+<div class="mt-9">
+<div style="width: 81%; margin: 0 auto;">
+  {{-- Errors will be shown here --}}
+  <div id="errors" style="width: 100%;">
+    <x-errors></x-errors>
+  </div>
+  {{-- success or fail messages --}}
+  <div id="success" style="width: 100%;">
+    <x-success-message></x-success-message>
+  </div>
+  <div id="fail" style="width: 100%;">
+    <x-fail-message></x-fail-message>
+  </div>
+</div></div>
 @if ($product)
-<div class="flex justify-center items-center">
+<div class="flex justify-center items-center mt-5">
+
 <div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-sm md:max-w-6xl justify-center items-center bg-white shadow rounded-lg  dark:bg-gray-800 dark:border-gray-700">
   <div class="flex justify-center items-center  p-3">
-    <a href="#">
       <img class="p-8 h-72 rounded-t-lg " src="/images/{{$product->image}}" alt="product image" />
-  </a>
   </div>
-  <div class="px-5 md:max-w-4xl pb-5 border ">
-          <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$product->name}},{{$product->description}}</h5>
-          <div class="category">
-            <span class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Category:</span>
-            <span class="bg-purple-100 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">{{$product->category}}</span>
+  <div class="px-5 md:max-w-4xl pb-5 border mt-4">
+    <h5 class="mt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$product->name}}</h5>
+    <h5 class="text-sm tracking-tight text-gray-900 dark:text-white">{{$product->name}}, {{$product->description}}</h5>
+          <div class="category mt-6">
+            <span class="bg-purple-100 text-gray-800 text-base font-semibold mr-2 px-3 py-1 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">{{$product->category}}</span>
           </div>
           @if ($product->prescription_req)
-          <div class="category">
-              <span class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Note: this product requires prescription</span>
+          <div class="category mt-3">
+            <span class="bg-gray-100 text-gray-800 text-base font-semibold mr-2 px-3 py-1 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">Requires Prescription !</span>
           </div>
       @endif
       @if ($product->stock <= 10 && $product->stock > 0)
-      <span class="bg-red-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">Few in stock !</span>
+      <div class="mt-3">
+      <span class=" mt-3 bg-red-100 text-gray-800 text-base font-semibold mr-2 px-3 py-1 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">Few in stock!</span>
+      </div>
       @endif
       @if ($product->stock == 0)
-      <span class="bg-red-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">Out of stock</span>
+      <div class="mt-3">
+      <span class="mt-3 bg-red-100 text-gray-800 text-base font-semibold mr-2 px-3 py-1 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">Out of Stock !</span>
+      </div>
       @endif
 
 

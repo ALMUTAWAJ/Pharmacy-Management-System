@@ -47,27 +47,15 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource in product page
      */
-    public function index(Request $request)
+    public function index()
     {
-        $category = $request->query('category');
-    
-        $query = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
+        $products = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
             ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
-            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock');
-    
-        if ($category) {
-            $query->where('category', $category);
-        }
-    
-        $products = $query->get();
-    
-        // Assuming there is no separate Category model, you can retrieve unique categories from the products
-        $categories = Product::distinct('category')->pluck('category');
+            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock')
+            ->get();
     
         return view('pages.customer.products', [
             'products' => $products,
-            'categories' => $categories,
-            'selectedCategory' => $category,
         ]);
     }
 
@@ -81,13 +69,9 @@ class ProductController extends Controller
             ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock')
             ->where('category', $category)
             ->get();
-    
-        $categories = Category::all(); // Assuming you have a Category model
-    
+
         return view('pages.customer.products', [
             'products' => $products,
-            'categories' => $categories,
-            'selectedCategory' => $category,
         ]);
     }
 
