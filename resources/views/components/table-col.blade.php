@@ -1,1 +1,1 @@
-<td class="py-4 px-4 bg-white">{{$slot}}</td>
+<td class="py-2 px-2 bg-white">{{$slot}}</td>

@@ -55,7 +55,7 @@ class RegisterController extends Controller
                 'password.regex' => 'The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.',
                 'dob.before_or_equal' => 'This human is still does not exist',
                 'dob.after' => 'Are you still alive?',
-                'phone_number'=> 'Phone number must follow Bahrain standards',
+                'phone_number'=> 'Phone number must follow Bahrain standards, also make sure it is not registered previously.',
             ],
 
             

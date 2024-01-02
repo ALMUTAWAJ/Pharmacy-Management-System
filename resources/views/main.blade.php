@@ -35,7 +35,7 @@
 <body class="font-sans antialiased ">
     <div class="w-full m-2 min-h-screen bg-white">
         <div class="">
-       <a href="{{route(config('chatify.routes.prefix'))}}"><x-delete-button> Temporary Logout</x-delete-button></a>
+       <a href="{{route(config('chatify.routes.prefix'))}}"><x-delete-button> Temporary Messages</x-delete-button></a>
             <!-- Content section -->
             @yield('content')
         </div>
