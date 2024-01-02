@@ -7,7 +7,7 @@
     <form action="{{route('users.store')}}" method="POST" style="display: grid; grid-template-columns: 15fr 1fr 15fr; grid-gap: 20px;">
       @csrf
       <h1 class="mb-5 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl mt-5">
-        Add a new staff member</h1>
+        Add a new user</h1>
           <div style="grid-column: 1;">
             <div class="flex gap-4">
                       <div class="w-full">

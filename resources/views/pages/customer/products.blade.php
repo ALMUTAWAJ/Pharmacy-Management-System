@@ -1,7 +1,17 @@
 @extends('layouts.customer-layout')
 
 @section('customer-content')
-
+            {{-- Errors will be shown here --}}
+            <div id="errors">
+               <x-errors></x-errors>
+           </div>
+           {{-- success or fail messages --}}
+           <div id="success">
+               <x-success-message></x-success-message>
+           </div>
+           <div id="fail">
+               <x-fail-message></x-fail-message>
+           </div>
  <x-title>{{ __('Products') }}</x-title>
 @if($products)
          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 pb-10 mb-4">
