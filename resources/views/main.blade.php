@@ -26,8 +26,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/datepicker.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js',])
-    <script src="{{ asset('/resources/js/report.js')}}"></script>
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    {{-- <script src="{{ asset('/resources/js/report.js')}}"></script> --}}
+    {{-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <!--bootstrap -->
 </head>

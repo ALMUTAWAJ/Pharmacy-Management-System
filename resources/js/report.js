@@ -1,1 +1,0 @@
-// ineed to pu the images slider and barcahr here
