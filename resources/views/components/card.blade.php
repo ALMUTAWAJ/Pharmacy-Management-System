@@ -6,7 +6,7 @@
     <a href="#">
       <h5 class="text-sm font-semibold h-14 tracking-tight text-gray-900 dark:text-white">{{ $name }}, {{ $description }}</h5>
     </a>
-    <span class="text-lg font-bold text-gray-900 dark:text-white">BD {{ $price }}</span>
+    <span class="text-lg font-bold text-gray-900 dark:text-white">BD {{ number_format($price,2)}}</span>
     {{-- THE CATEGORY VARIABLE IS NOT GETTING FETCHED - TRY PLEASE --}}
     {{-- <span class="bg-purple-100 text-gray-800 text-base font-semibold mr-2 px-3 py-1 rounded dark:bg-purple-200 dark:text-purple-800 ml-3">{{$category}}</span> --}}
     <div class="flex items-center justify-between mt-3">

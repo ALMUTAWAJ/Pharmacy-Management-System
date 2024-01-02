@@ -46,7 +46,7 @@
 
 
       <div class="flex items-center justify-between">
-        <span class="text-3xl font-bold text-gray-900 dark:text-white block">BHD {{$product->price}}</span>
+        <span class="text-3xl font-bold text-gray-900 dark:text-white block">BHD {{ number_format($product->price,2)}}</span>
         <div class="m-4">
           <form action="{{ route('cart.add', ['product' => $product->id]) }}" method="POST">
             @csrf

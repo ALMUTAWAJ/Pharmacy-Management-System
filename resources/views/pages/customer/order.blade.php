@@ -112,10 +112,10 @@
                         {{ $orderDetail->quantity }}
                     </td>
                     <td class="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                        BD {{ $product->price }}
+                        BD {{ number_format($product->price, 2) }}
                     </td>
                     <td class="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                        BD {{ $orderDetail->quantity * $product->price }}
+                        BD {{ number_format($orderDetail->quantity * $product->price, 2) }}
                     </td>
                 </tr>
                 @endforeach
@@ -126,7 +126,7 @@
                         Shipping Fee
                     </th>
                     <td class="pt-4 pl-3 pr-4 text-sm font-normal text-right text-slate-700 sm:pr-6 md:pr-0">
-                        BD 2.0
+                        BD 2.00
                     </td>
                 </tr>
                 <tr>
@@ -134,7 +134,7 @@
                         Total
                     </th>
                     <td class="pt-4 pl-3 pr-4 text-sm font-normal text-right text-slate-700 sm:pr-6 md:pr-0">
-                        BD {{ $total_price }}
+                        BD {{ number_format($total_price, 2) }}
                     </td>
                 </tr>
             </tfoot>

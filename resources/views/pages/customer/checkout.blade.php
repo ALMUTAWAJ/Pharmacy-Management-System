@@ -40,8 +40,8 @@
               @endphp
               <tr class="bg-white border-gray-100">
                 <x-table-col>{{ $cartItem['quantity'] }}x {{ $product->name }}</x-table-col>
-                <x-table-col>{{ $product->price }}</x-table-col>
-                <x-table-col>{{ $itemPrice }}</x-table-col>
+                <x-table-col>{{ number_format($product->price, 2) }}</x-table-col>
+                <x-table-col>{{ number_format($itemPrice, 2) }}</x-table-col>
               </tr>
             @endforeach
           </tbody>
