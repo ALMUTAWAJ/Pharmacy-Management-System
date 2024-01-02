@@ -11,9 +11,10 @@
         </div>
         <br>
     @endif
-    
+
 <x-fail-message></x-fail-message>
 <x-success-message></x-success-message>
+<x-errors></x-errors>
 
     @php
         $totalQuantity = 0;

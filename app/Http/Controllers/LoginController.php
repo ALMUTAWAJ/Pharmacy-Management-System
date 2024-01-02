@@ -113,6 +113,10 @@ class LoginController extends Controller
 
         // Attempt login again after handling attempts
         if (Auth::attempt(['username' => $username_or_email, 'password' => $password], $remember) || Auth::attempt(['email' => $username_or_email, 'password' => $password], $remember)) {
+            $loginAttempts = LoginAttempt::where('userID', $user->id)->first();
+            if($loginAttempts){
+                $loginAttempts->delete();
+            }
             return $this->checkRoles();
         }
 

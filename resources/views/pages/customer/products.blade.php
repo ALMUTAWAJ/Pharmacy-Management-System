@@ -2,14 +2,14 @@
 
 @section('customer-content')
             {{-- Errors will be shown here --}}
-            <div id="errors">
+            <div style="width:500px" id="errors">
                <x-errors></x-errors>
            </div>
            {{-- success or fail messages --}}
            <div style="width:500px" id="success">
                <x-success-message></x-success-message>
            </div>
-           <div id="fail">
+           <div style="width:500px" id="fail">
                <x-fail-message></x-fail-message>
            </div>
  <x-title>{{ __('Products') }}</x-title>
