@@ -43,6 +43,7 @@ class UserController extends Controller
             'password.regex' => 'The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.',
             'dob.before_or_equal' => 'This human does not exist',
             'dob.after' => 'Are you still alive?',
+            'phone_number.regex'=>'The phone number must follow Bahrain standards, also make sure it is not registered previously'
         ];
     }
 
@@ -241,6 +242,7 @@ class UserController extends Controller
          ], [
              'dob.before_or_equal' => 'This human does not exist',
              'dob.after' => 'Are you still alive?',
+             'phone_number.regex'=>'The phone number must follow Bahrain standards, also make sure it is not registered previously'
          ]);
      
          $user->update([

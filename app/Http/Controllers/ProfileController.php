@@ -46,7 +46,7 @@ class ProfileController extends Controller
             [
                 'dob.before_or_equal' => 'This human does not exist',
                 'dob.after' => 'Are you still alive?',
-                'phone_number.regex'=>'The phone number must follow Bahrain standards'
+                'phone_number.regex'=>'The phone number must follow Bahrain standards, also make sure it is not registered previously'
             ]
         );
 

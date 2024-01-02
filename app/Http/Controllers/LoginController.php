@@ -18,9 +18,9 @@ class LoginController extends Controller
 
         switch (auth()->user()->role) {
             case 'admin':
-                return Redirect::route('admin.index');
+                return Redirect::route('users.index');
             case 'staff':
-                return Redirect::route('staff.index');
+                return Redirect::route('staff.view.product');
             case 'customer':
                 return Redirect::route('customer.index');
             // case 'supplier':
