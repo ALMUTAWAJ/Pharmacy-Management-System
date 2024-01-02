@@ -61,20 +61,6 @@ class CheckoutController extends Controller
         return $prescriptionProducts;
     }
 
-    // public function getUserInfo(Request $request)
-    // {
-    //     $userId = $request->user()->id;
-
-    //     $userInfo = User::with('personal')->findOrFail($userId);
-    //     $username = $userInfo->username;
-    //     $email = $userInfo->email;
-    //     $phone = $userInfo->phone_number;
-    //     $personalInfo = $userInfo->personal;
-
-    //     return $userInfo;
-    // }
-
-
     public function updateUserInfo(Request $request)
     {
         $user = User::find($request->user()->id);
@@ -107,38 +93,6 @@ class CheckoutController extends Controller
         return redirect()->back();
     }
 
-    // public function updateAddressInfo(Request $request)
-    // {
-    //     $user = User::find($request->user()->id);
-    
-    //     if ($user) {
-    //         $validator = Validator::make($request->all(), [
-    //             'city' => ['string', 'max:255'],
-    //             'house' => ['string', 'max:255'],
-    //             'road' => ['string', 'max:255'],
-    //             'block' => ['string', 'max:255'],
-    //         ]);
-    
-    //         if ($validator->passes()) {
-    //             $personal = Personal::where('userID', $user->id)->first();
-    
-    //             if ($personal) {
-    //                 $personal->addresses()->create([
-    //                     'city' => $request->city,
-    //                     'house' => $request->house,
-    //                     'road' => $request->road,
-    //                     'block' => $request->block,
-    //                 ]);
-    
-    //                 return redirect()->back();
-    //             }
-    //         }
-    
-    //         return redirect()->back()->withErrors($validator);
-    //     }
-    
-    //     return redirect()->back();
-    // }
 
     public function updateAddressInfo(Request $request)
 {
@@ -269,7 +223,7 @@ public function placeOrder(Request $request)
         $payment = Payment::create([
             'orderID' => $order->id,
             'status' => $status,
-            'amount' => $totalPrice,
+            'amount' => $totalPrice + 2,
             'method' => $paymentMethod,
             'transaction' => $transaction,
         ]);
