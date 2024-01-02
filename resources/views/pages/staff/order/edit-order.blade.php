@@ -3,7 +3,9 @@
 @section('staff-content')
     <section class="bg-white">
         <div class="py-8 px-6 mx-auto max-w-2xl lg:py-16 rounded-md">
-            <x-prev-button>Back</x-prev-button><br><br>
+            <a href="{{route('staff.view.order')}}">
+                <x-prev-button>Back</x-prev-button><br><br>
+            </a>
             <x-success-message></x-success-message>
             <x-fail-message></x-fail-message>
             <x-errors></x-errors>
@@ -19,7 +21,7 @@
                 <div class="grid grid-cols-4 gap-4">
                     <!-- Search bar -->
                     <div class="col-span-3">
-                        <x-search-bar placeholder="Search by name or ID" name="search" :value="request('search')" />
+                        <x-search-bar placeholder="Search by order name or ID" name="search" :value="request('search')" />
                     </div>
                     <!-- Dropdown -->
                     <div class="col-span-1">
@@ -42,15 +44,15 @@
             <br>
             <br>
 
-            <div class="bg-purple-500 text-purple-100 p-4 rounded-lg shadow-lg mb-8">
-                <p class="text-2xl font-bold mb-4">Order Brief</p>
+            <div class="bg-white-500 text-purple-100 p-4 rounded-lg shadow-lg mb-8">
+                <p class="text-2xl text-gray-600 font-bold mb-4">Order Brief</p>
                 <div class="flex flex-wrap gap-2">
-                    <div class="bg-purple-400 text-purple-900 px-2 py-1 rounded-md">Order ID: {{ $order->id }}</div>
-                    <div class="bg-purple-400 text-purple-900 px-2 py-1 rounded-md">Order Status: {{ $order->status }}</div>
-                    <div class="bg-purple-400 text-purple-900 px-2 py-1 rounded-md">Total Price: BD{{ $order->total_price }}</div>
-                    <div class="bg-purple-400 text-purple-900 px-2 py-1 rounded-md">Customer Name: @if($personal) {{ $personal->firstname }} {{ $personal->lastname }} @else N/A @endif</div>
-                    <div class="bg-purple-400 text-purple-900 px-2 py-1 rounded-md">Ordered At: {{ $order->created_at }}</div>
-                    <div class="bg-purple-400 text-purple-900 px-2 py-1 rounded-md">Last Updated: {{ $order->updated_at }}</div>
+                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Order ID: {{ $order->id }}</div>
+                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Order Status: {{ $order->status }}</div>
+                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Total Price: BD{{ $order->total_price }}</div>
+                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Customer Name: @if($personal) {{ $personal->firstname }} {{ $personal->lastname }} @else N/A @endif</div>
+                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Ordered At: {{ $order->created_at }}</div>
+                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Last Updated: {{ $order->updated_at }}</div>
 
                 </div>
             </div>
@@ -64,10 +66,11 @@
 
                 <div>
                     <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                    <select name="status" id="status" {{ $disabled ? 'disabled' : '' }}
+                    <select name="status" required id="status" {{ $disabled ? 'disabled' : '' }}
                         class="bg-gray-100 border border-gray-300 text-gray-500 text-sm rounded-lg focus:border-purple-500 block w-full p-2.5 border-2 border-solid"
                         {{ $disabled ? 'aria-disabled="true"' : '' }}>
-                        <option {{ $disabled ? 'disabled' : '' }} value='' {{$order->status=='Cancelled'?'Selected':''}}>{{$order->status=='Cancelled'?'Cancelled':'Select a'}}</option>
+                        <option value='' >Select a status</option>
+                        <option {{ $disabled ? 'disabled' : '' }} value='Cancelled' {{$order->status=='Cancelled'?'Selected':''}}>Cancelled</option>
                         <option value="Pending" {{ old('status', $order->status) === 'Pending' ? 'selected' : '' }}>Pending</option>
                         <option value="In Progress" {{ old('status', $order->status) === 'In progress' ? 'selected' : '' }}>In progress</option>
                         <option value="Delivered" {{ old('status', $order->status) === 'Delivered' ? 'selected' : '' }}>Delivered</option>
