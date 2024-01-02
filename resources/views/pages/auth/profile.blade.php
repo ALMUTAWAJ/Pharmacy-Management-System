@@ -197,15 +197,19 @@
                             <option value="{{ $addresses->get($index)['id'] }}" {{ isset($chosen_address) && $chosen_address->id == $addresses->get($index)['id'] ? 'selected' : '' }}>
                                 {{ "City: $address->city| House: $address->house| Road: $address->road| Block: $address->block" }}
                                 {{ $index == 0 ? '(Default) ' : '' }}</option>
-                        @endforeach )
+                        @endforeach 
                     </select>
                 </div><br><br>
             </form>
 
-            <form class="hidden" id='card3' method="POST" action="{{ route('update.address', isset($chosen_address) ? $chosen_address->id : ($addresses->count() > 0 ? $addresses->get(0)['id'] : null)) }}">
-
-                <a href="{{ route('new.address') }}">
-                    <x-secondary-button>
+            @php
+               $x = isset($chosen_address) ? $chosen_address->id : ($addresses->count() > 0 ? $addresses->get(0)['id'] : 0)
+            @endphp
+           @if ($x!=0)
+           
+           <form class="hidden" id='card3' method="POST" action="{{ route('update.address', isset($chosen_address) ? $chosen_address->id : ($addresses->count() > 0 ? $addresses->get(0)['id'] : 0)) }}">
+            <a href="{{ route('new.address') }}">
+                <x-secondary-button>
                         <span class="material-symbols-outlined">
                             add_box
                         </span>
@@ -223,7 +227,7 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400"
                             placeholder="e.g. Manama"
                             value="{{  isset($chosen_address) ? $chosen_address['city'] : $addresses->get(0)['city'] ?? '' }}">
-                    </div>
+                        </div>
 
                     <div class="w-full">
                         <label for="house" class="block mb-2 text-sm font-medium text-gray-900">House</label>
@@ -240,20 +244,45 @@
                             placeholder="e.g. 1000"
                             value="{{  isset($chosen_address) ? $chosen_address['road'] : $addresses->get(0)['road'] ?? '' }}">
                     </div>
-
+                    
                     <div class="w-full">
                         <label for="block" class="block mb-2 text-sm font-medium text-gray-900">Block</label>
                         <input required type="text" name="block" id="block"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400"
-                            placeholder="e.g. 900"
-                            value="{{  isset($chosen_address) ? $chosen_address['block'] : $addresses->get(0)['block'] ?? '' }}">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 focus:outline-none focus:ring focus:ring-purple-300 placeholder-gray-400"
+                        placeholder="e.g. 900"
+                        value="{{  isset($chosen_address) ? $chosen_address['block'] : $addresses->get(0)['block'] ?? '' }}">
                     </div>
-
+                    
                 </div>
-
+                
                 <x-submit-button>Update Address</x-submit-button>
             </form>
+            @else
 
+
+            <div class="flex items-center p-4 mb-4 text-sm text-red-500 rounded-lg bg-purple-50"
+            role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">&nbsp; No Addresses Found, please aadd one.</span>
+            </div>
+        </div>
+        <a href="{{ route('new.address') }}">
+            <x-secondary-button>
+                    <span class="material-symbols-outlined">
+                        add_box
+                    </span>
+                    &nbsp Add a new address
+                </x-secondary-button>
+            </a><br><br>
+
+            @endif
+            
         </div>
     </section>
     <script src="{{ asset('js/profile.js') }}"></script>

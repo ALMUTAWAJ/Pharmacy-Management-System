@@ -178,10 +178,10 @@ class ProfileController extends Controller
                 'block' => 'required|numeric|max:9999',
                 'road' => 'required|regex:/^[a-zA-Z0-9\s,]+$/|max:30',
             ], [
-                'house' => 'House number must be only numbers without spaces or any other characters',
-                'block' => 'Block number must be only numbers without spaces or any other characters',
-                'city' => 'City name must not include numbers or special characters other than ","',
-                'road' => 'Road must not include numbers or special characters other than ","',
+                'house' => 'House number must be only digits without spaces or any other characters',
+                'block' => 'Block number must be only digits without spaces or any other characters',
+                'city' => 'City name must not include digits or special characters other than ,',
+                'road' => 'Road must include only alphabet letters, digits or special characters other than ,',
             ]);
 
             $newAddress = new Address([
