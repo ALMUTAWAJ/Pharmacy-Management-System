@@ -13,7 +13,26 @@
                <x-fail-message></x-fail-message>
            </div>
  <x-title>{{ __('Products') }}</x-title>
-@if($products)
+
+
+     <div class="text-center p-4 mt-4 mb-8">
+
+        <div style="width: 80rem; margin-left: 7rem;">
+            <form method="GET" action="{{ route('customer.products.index') }}">
+                @csrf
+                <div class="grid grid-cols-4 gap-4">
+                    <!-- Search bar -->
+                    <div class="col-span-3">
+                        <x-search-bar placeholder="Search by name or description" name="search" :value="request('search')" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+<br>
+
+
+@if($products&&$products->count()>0)
          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 pb-10 mb-4">
           @foreach ($products as $product)
           <x-card
@@ -29,7 +48,9 @@
      </div>
 
      @else
-     <div class="flex items-center p-4 mb-4 text-sm text-red-500 rounded-lg bg-purple-50"
+     
+     <div align="center">
+     <div class="flex items-center p-4 mb-4 text-sm w-2/4  text-red-500 rounded-lg bg-purple-50"
      role="alert">
      <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
          xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -41,6 +62,7 @@
          <span class="font-medium">&nbsp; No Products Found.</span>
      </div>
  </div>
+</div>
 @endif 
 
 @endsection

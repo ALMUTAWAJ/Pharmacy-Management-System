@@ -48,20 +48,31 @@ class ProductController extends Controller
      * Display a listing of the resource in product page
      */
     public function index(Request $request)
-    {
-        $category = $request->query('category');
+    { 
+        // Search product by name or description
+        $searchQuery = $request->query('search');
     
-        $query = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
+        // Query products based on the filter type and search query
+        $productsQuery = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
             ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
             ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock');
     
-        if ($category) {
-            $query->where('category', $category);
+        if ($searchQuery) {
+            $productsQuery->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('description', 'like', '%' . $searchQuery . '%');
+            });
         }
     
-        $products = $query->get();
+        $category = $request->query('category');
     
-        // Assuming there is no separate Category model, you can retrieve unique categories from the products
+        if ($category) {
+            $productsQuery->where('category', $category);
+        }
+    
+        $products = $productsQuery->get();
+    
+        // Get unique categories from the products
         $categories = Product::distinct('category')->pluck('category');
     
         return view('pages.customer.products', [
@@ -70,6 +81,7 @@ class ProductController extends Controller
             'selectedCategory' => $category,
         ]);
     }
+    
 
     /**
      * Display list of product in product page filtered by category

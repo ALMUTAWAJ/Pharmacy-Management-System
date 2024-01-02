@@ -177,7 +177,7 @@ class ManageOrderController extends Controller
             $totalPrice += $orderDetail->quantity * $product->price; 
         }
 
-        $order->total_price = $totalPrice;
+        $order->total_price = $totalPrice+2;
         $order->status = $request->status;
         $order->save();
 

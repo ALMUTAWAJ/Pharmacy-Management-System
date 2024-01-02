@@ -2,8 +2,27 @@
 
 @section('customer-content')
 
+
+
+
+
     {{-- welcome --}}
     <div class="text-center p-4 mt-4 mb-8">
+
+        <div style="width: 80rem; margin-left: 7rem;">
+            <form method="GET" action="{{ route('customer.products.index') }}">
+                @csrf
+                <div class="grid grid-cols-4 gap-4">
+                    <!-- Search bar -->
+                    <div class="col-span-3">
+                        <x-search-bar placeholder="Search by name or description" name="search" :value="request('search')" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+<br>
+
         <p class="text-5xl text-gray-900 dark:text-white">Welcome</p>
         <p class="text-2xl text-gray-900 dark:text-white">Welcome to our trusted online pharmacy, where your health and
             well-being are our top priority</p>
@@ -18,22 +37,22 @@
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96 border-4">
             <!-- Item 1 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/images/img4.jpeg" style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                <img src="/images/slider/1.jpeg" style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                     alt="...">
             </div>
             <!-- Item 2 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/images/img1.jpeg" style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                <img src="/images/slider/2.jpg"  style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                     alt="...">
             </div>
             <!-- Item 3 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/images/img2.jpeg" style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                <img src="/images/slider/3.jpg" style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                     alt="...">
             </div>
             <!-- Item 4 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/images/img3.jpeg" style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                <img src="/images/slider/4.jpg"  style="width:500px;height:500px;" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                     alt="...">
             </div>
             <!-- Item 5 -->

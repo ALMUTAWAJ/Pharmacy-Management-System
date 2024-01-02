@@ -63,13 +63,15 @@ class CheckoutController extends Controller
 
     public function updateUserInfo(Request $request)
     {
-        $user = User::find($request->user()->id);
+        $id = $request->user()->id;
+        $user = User::find($id);
 
         if ($user) {
             $validator = Validator::make($request->all(), [
                 'firstname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
                 'lastname' => ['required', 'string', 'min:3', 'max:25', 'regex:/^[A-Za-z\s]+$/'],
                 // TODO: Add validation rules for 'phone_number' and 'email' fields
+                'phone_number' => ["required", "regex:/^((00|\+)973 ?)?((3\d|66)\d{6})$/", "unique:users,phone_number,{$id}"],
                 'email' => "required|email|unique:users,email,{$user->id}",
             ]);
 
