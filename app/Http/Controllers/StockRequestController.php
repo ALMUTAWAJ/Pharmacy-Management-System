@@ -86,6 +86,54 @@ class StockRequestController extends Controller
 
 
 
+  
+function showListInReport(Request $request)
+{
+    $sort = $request->sort ?? 'asc'; // Default sorting order
+
+    // Fetch StockRequests with related Product, Supplier, and Staff data
+    $stockRequests = StockRequest::with([
+        'product:id,name',
+        'supplier:id,company_name',
+        'staff:id,name'
+    ])
+    ->orderBy('created_at', $sort)
+    ->get();
+
+    return view('pages/admin/show-stock-requests', compact('stockRequests'));
+}
+
+
+    function detailInReport($id){
+        // Retrieve the StockRequest record by ID with its related data
+        $stockRequest = StockRequest::with(['product', 'supplier', 'staff'])->find($id);
+    
+        // Accessing related data
+        $productName = $stockRequest->product->name;
+        $supplierCompanyName = $stockRequest->supplier->company_name;
+        $staffName = $stockRequest->staff->name;
+        $createdAt = $stockRequest->created_at;
+        $quantity = $stockRequest->quantity;
+    
+        return view('pages/admin/show-stock-request-detail', [
+            'stockRequest' => $stockRequest,
+            'productName' => $productName,
+            'supplierCompanyName' => $supplierCompanyName,
+            'staffName' => $staffName,
+            'createdAt' => $createdAt,
+            'quantity' => $quantity
+        ]);
+
+    }
+
+    
+
+
+
+
 
 
 }
+
+
+

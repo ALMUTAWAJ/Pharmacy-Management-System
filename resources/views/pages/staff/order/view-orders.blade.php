@@ -2,7 +2,7 @@
 
 @section('staff-content')
     <section class="bg-white">
-        <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16  rounded-md">
+        <div class="py-8 px-4 mx-auto w-full lg:py-16  rounded-md">
             <x-success-message></x-success-message>
             <x-fail-message></x-fail-message>
 

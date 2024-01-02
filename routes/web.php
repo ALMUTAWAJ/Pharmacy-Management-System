@@ -110,6 +110,9 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/admin/supplier/update/{id}', [SupplierController::class, 'update'])->name('admin.update.supplier');
         Route::put('/admin/supplier/delete/{id}', [SupplierController::class, 'delete'])->name('admin.delete.supplier');
 
+        Route::get('admin/stock-requests', [StockRequestController::class, 'showListInReport'])->name('admin.view.stock_requests');
+        Route::get('admin/stock-request/detail/{id}', [StockRequestController::class, 'detailInReport'])->name('admin.view.stock_request_detail');
+        
     });
 
     // Staff routes
@@ -189,13 +192,13 @@ Route::middleware(['auth'])->group(function () {
             ->name('customer.cart.checkout.user');
     });
 
-    // Supplier routes
-    Route::middleware(['supplier'])->group(function () {
-        // Routes accessible only to users with the "supplier" role.
-        Route::get('/supplier/index', function () {
-            return view('pages.supplier.index');
-        })->name('supplier.index');
-    });
+    // Supplier routes (cancelled)
+    // Route::middleware(['supplier'])->group(function () {
+    //     // Routes accessible only to users with the "supplier" role.
+    //     Route::get('/supplier/index', function () {
+    //         return view('pages.supplier.index');
+    //     })->name('supplier.index');
+    // });
 
 
 
