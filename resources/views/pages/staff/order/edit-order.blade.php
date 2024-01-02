@@ -147,7 +147,7 @@
                                     {{$order_detail->product->name}}
                                 </td>
                                 <td class="text-center px-2 py-2">
-                                    {{"BD".$order_detail->product->price}}
+                                    {{"BD".number_format($order_detail->product->price,2)}}
                                 </td>
                                 <td class="px-2 py-2">
                                     <div class="flex items-center">

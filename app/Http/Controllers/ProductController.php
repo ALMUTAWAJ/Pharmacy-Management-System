@@ -86,22 +86,22 @@ class ProductController extends Controller
     /**
      * Display list of product in product page filtered by category
      */
-    public function showCategory(string $category)
-    {
-        $products = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
-            ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
-            ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock')
-            ->where('category', $category)
-            ->get();
+    // public function showCategory(string $category)
+    // {
+    //     $products = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
+    //         ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
+    //         ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock')
+    //         ->where('category', $category)
+    //         ->get();
 
-        $categories = Category::all(); // Assuming you have a Category model
+    //     $categories = Category::all(); // Assuming you have a Category model
 
-        return view('pages.customer.products', [
-            'products' => $products,
-            'categories' => $categories,
-            'selectedCategory' => $category,
-        ]);
-    }
+    //     return view('pages.customer.products', [
+    //         'products' => $products,
+    //         'categories' => $categories,
+    //         'selectedCategory' => $category,
+    //     ]);
+    // }
 
 
     /**

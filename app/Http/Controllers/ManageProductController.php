@@ -196,7 +196,7 @@ class ManageProductController extends Controller
 
         $data = [
             'name' => $request->input('name'),
-            'price' => $request->input('price'),
+            'price' => number_format($request->input('price'),2),
             'category' => $request->input('category'),
             'prescription_req' => $checked,
             'description' => $request->input('description'),
