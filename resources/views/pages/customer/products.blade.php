@@ -17,17 +17,21 @@
 
      <div class="text-center p-4 mt-4 mb-8">
 
-        <div style="width: 80rem; margin-left: 7rem;">
-            <form method="GET" action="{{ route('customer.products.index') }}">
-                @csrf
-                <div class="grid grid-cols-4 gap-4">
-                    <!-- Search bar -->
-                    <div class="col-span-3">
-                        <x-search-bar placeholder="Search by name or description" name="search" :value="request('search')" />
+        <div class="text-center p-4 mt-4 mb-8">
+
+            <div style="width: 67rem; margin-left: 12rem;">
+                <form method="GET" action="{{ route('customer.products.index') }}">
+                    @csrf
+                    <div class="grid grid-cols-4 gap-4">
+                        <!-- Search bar -->
+                        <div class="col-span-3">
+                            <x-search-bar placeholder="Search by name or description" name="search" :value="request('search')" />
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+            
+    <br>
         
 <br>
 

@@ -9,7 +9,7 @@
     {{-- welcome --}}
     <div class="text-center p-4 mt-4 mb-8">
 
-        <div style="width: 80rem; margin-left: 7rem;">
+        <div style="width: 67rem; margin-left: 12rem;">
             <form method="GET" action="{{ route('customer.products.index') }}">
                 @csrf
                 <div class="grid grid-cols-4 gap-4">
