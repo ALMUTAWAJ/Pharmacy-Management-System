@@ -30,6 +30,13 @@ class StockRequestController extends Controller
     {
         $request->validate([
             'emailBody' => 'required|string|max:500',
+            'quantity' => [
+                'required',
+                'integer',
+                'min:0',
+                'max:3000',
+            ],
+
         ], [
             'emailBody.required' => 'Email body is required.',
             'emailBody.string' => 'Invalid email body format.',
@@ -42,6 +49,7 @@ class StockRequestController extends Controller
         $supplierId = $request->supplierId;
         $content = $request->emailBody;
         $subject = $request->subject;
+        $quantity = $request->quantity;
 
 
         // Find the supplier
@@ -66,6 +74,8 @@ class StockRequestController extends Controller
             $stockRequest->supplierID = $supplier->id;
             $stockRequest->productID = $productId;
             $stockRequest->staffID = auth()->user()->id;
+            $stockRequest->quantity = $quantity;
+            $stockRequest->subject = $subject;
             $stockRequest->save();
 
             return redirect()->back()->with('success', 'Email sent and request saved successfully.');
