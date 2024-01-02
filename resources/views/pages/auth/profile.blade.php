@@ -4,6 +4,9 @@
     <section class="bg-gray-50 p-10">
         <div
             class="py-12 px-4 mx-auto max-w-2xl lg:py-22 w-full bg-white rounded-lg shadow white:border md:mt-0 sm:max-w-md xl:p-10">
+            <a href="{{route('home')}}"><x-prev-button></x-prev-button></a>
+            <br>
+            <br><br>
             <a href="{{ route('home') }}" class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
                 <x-application-logo></x-application-logo>
                 <h5 class="ml-5">Pharmacy</h5>
