@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("card1").style.display = "none";
         document.getElementById("card2").style.display = "none";
         document.getElementById("card3").style.display = "none";
+        document.getElementById("address_selection").style.display = "none";
+
     }
 
     function showForm(formId, buttonId, cardTitle) {
@@ -17,6 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Update the title based on the active card
         document.getElementById("title").innerHTML = cardTitle;
+
+        if(formId=='card3'){
+            document.getElementById('address_selection').style.display = "block";  
+        }
 
         // Store the active card in a cookie or local storage
         localStorage.setItem('activeCard', formId);
