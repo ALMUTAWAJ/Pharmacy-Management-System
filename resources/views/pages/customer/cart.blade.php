@@ -11,7 +11,9 @@
         </div>
         <br>
     @endif
-
+    
+<x-fail-message></x-fail-message>
+<x-success-message></x-success-message>
 
     @php
         $totalQuantity = 0;
@@ -116,7 +118,7 @@
                     </div>
 
                      {{-- message to refresh --}}
-                     <div class="flex items-center p-1 mb-2 text-sm w-full  text-pruple-600 rounded-lg bg-purple-50"
+                     {{-- <div class="flex items-center p-1 mb-2 text-sm w-full  text-pruple-600 rounded-lg bg-purple-50"
                      role="alert">
                      <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                          fill="currentColor" viewBox="0 0 20 20">
@@ -126,7 +128,7 @@
                      <span class="sr-only">Info</span>
                      <div>
                          <span class="font-medium">&nbsp; Refresh to update total cost.</span>
-                     </div>
+                     </div> --}}
 
 
                     </div>

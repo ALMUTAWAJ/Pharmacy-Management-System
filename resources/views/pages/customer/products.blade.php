@@ -6,7 +6,7 @@
                <x-errors></x-errors>
            </div>
            {{-- success or fail messages --}}
-           <div id="success">
+           <div style="width:500px" id="success">
                <x-success-message></x-success-message>
            </div>
            <div id="fail">
