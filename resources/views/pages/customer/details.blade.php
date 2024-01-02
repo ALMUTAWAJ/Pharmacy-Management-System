@@ -20,7 +20,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-sm md:max-w-6xl justify-center items-center bg-white shadow rounded-lg  dark:bg-gray-800 dark:border-gray-700">
   <div class="flex justify-center items-center  p-3">
-      <img class="p-8 h-72 rounded-t-lg " src="/images/{{$product->image}}" alt="product image" />
+      <img class="p-8 h-72 rounded-t-lg " src='{{asset("/storage/$product->image")}}' alt="product image" />
   </div>
   <div class="px-5 md:max-w-4xl pb-5 border mt-4">
     <h5 class="mt-5 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$product->name}}</h5>
