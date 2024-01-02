@@ -48,40 +48,40 @@ class ProductController extends Controller
      * Display a listing of the resource in product page
      */
     public function index(Request $request)
-    { 
+    {
         // Search product by name or description
         $searchQuery = $request->query('search');
-    
+
         // Query products based on the filter type and search query
         $productsQuery = Product::leftJoin('reviews', 'products.id', '=', 'reviews.productID')
             ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
             ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock');
-    
+
         if ($searchQuery) {
             $productsQuery->where(function ($query) use ($searchQuery) {
                 $query->where('name', 'like', '%' . $searchQuery . '%')
                     ->orWhere('description', 'like', '%' . $searchQuery . '%');
             });
         }
-    
+
         $category = $request->query('category');
-    
+
         if ($category) {
             $productsQuery->where('category', $category);
         }
-    
+
         $products = $productsQuery->get();
-    
+
         // Get unique categories from the products
         $categories = Product::distinct('category')->pluck('category');
-    
+
         return view('pages.customer.products', [
             'products' => $products,
             'categories' => $categories,
             'selectedCategory' => $category,
         ]);
     }
-    
+
 
     /**
      * Display list of product in product page filtered by category
@@ -93,9 +93,9 @@ class ProductController extends Controller
             ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.stock')
             ->where('category', $category)
             ->get();
-    
+
         $categories = Category::all(); // Assuming you have a Category model
-    
+
         return view('pages.customer.products', [
             'products' => $products,
             'categories' => $categories,
@@ -129,7 +129,7 @@ class ProductController extends Controller
             ->select('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.category', 'products.prescription_req', 'products.stock', DB::raw('COALESCE(AVG(reviews.rate), 0) AS average_rating'))
             ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.image', 'products.category', 'products.prescription_req', 'products.stock')
             ->find($id);
-    
+
         return view('pages.customer.details', [
             'product' => $product,
         ]);
