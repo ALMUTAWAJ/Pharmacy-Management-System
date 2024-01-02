@@ -82,7 +82,7 @@
       {{-- icon --}}
       <div class="flex items-center justify-center">
         <a href="{{ route('customer.products.index', ['category' => 'medicine']) }}">
-          <img class="p-2 rounded-lg h-12" src="/images/category/medicine.svg" alt="medicine icon" />
+          <img class="p-2 rounded-lg h-12" src="/images/category/supplement.svg" alt="medicine icon" />
         </a>
       </div>
       {{-- title --}}
@@ -98,7 +98,7 @@
       {{-- icon --}}
       <div class="flex items-center justify-center">
         <a href="{{ route('customer.products.index', ['category' => 'beauty']) }}">
-          <img class="p-2 rounded-lg h-12" src="/images/category/beauty.svg" alt="beauty icon" />
+          <img class="p-2 rounded-lg h-12" src="/images/category/cosmetics.svg" alt="beauty icon" />
         </a>
       </div>
       {{-- title --}}
@@ -130,7 +130,7 @@
       {{-- icon --}}
       <div class="flex items-center justify-center">
         <a href="{{ route('customer.products.index', ['category' => 'Personal Care']) }}">
-          <img class="p-2 rounded-lg h-12" src="/images/category/personal-care.svg" alt="personal care icon" />
+          <img class="p-2 rounded-lg h-12" src="/images/category/body-care.svg" alt="personal care icon" />
         </a>
       </div>
       {{-- title --}}

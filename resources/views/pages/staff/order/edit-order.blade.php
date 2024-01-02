@@ -95,9 +95,10 @@
                         @foreach ($prescriptionFiles as $index => $prescription)
                           <tr class="{{ $loop->odd ? 'bg-white' : 'bg-gray-50' }} border-b">
                             <td class="w-10/12 px-10 py-3">
-                              <a href="{{ asset('storage/' . $prescription->prescription_upload) }}" target="_blank">
+                           <u>   <a href="{{ asset('storage/' . $prescription->prescription_upload) }}" target="_blank">
                                 Prescription {{ $index + 1 }}
                               </a>
+                            </u>
                             </td>
                             <td class="w-2/12 px-4 py-3 text-right pr-10">
                               <input type="checkbox" name="approval[]" value="{{ $prescription->id }}" {{ $prescription->approval ? 'checked' : '' }}>
@@ -124,9 +125,6 @@
                                 Product Name
                             </th>
                             <th scope="col" class="px-4 py-3">
-                                Discount Percentage
-                            </th>
-                            <th scope="col" class="px-4 py-3">
                                 Unit Price (BD)
                             </th>
                             <th scope="col" class="px-4 py-3">
@@ -147,9 +145,6 @@
                                 </th>
                                 <td class="px-2 py-2 text-center">
                                     {{$order_detail->product->name}}
-                                </td>
-                                <td class="text-center px-2 py-2">
-                                    ????
                                 </td>
                                 <td class="text-center px-2 py-2">
                                     {{"BD".$order_detail->product->price}}
