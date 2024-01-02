@@ -18,10 +18,9 @@ class CartController extends Controller
 
     public function showCart()
     {
-
         $cart = session('cart', []);
         $totalPrice = 0;
-
+        // dd($cart);
         foreach ($cart as $cartItem) {
             $product = Product::find($cartItem['productID']);
 
@@ -55,28 +54,28 @@ class CartController extends Controller
     public function addItem(Request $request, $productId)
     {
         $product = Product::find($productId);
-
+        
         $cart = session('cart', []);
         $found = false;
-
+        
         foreach ($cart as &$cartItem) {
-            if ($cartItem['productID'] == $productId) {
-                $cartItem['quantity'] += 1;
+            if ($cartItem['productID'] == $productId && $cartItem['quantity'] < $product->stock) {
+                $cartItem['quantity']++;
                 $found = true;
                 break;
             }
         }
-
+        
         if (!$found) {
-            $cartItem = [
+            $newCartItem = [
                 'productID' => $productId,
                 'quantity' => 1,
             ];
-            $cart[] = $cartItem;
+            $cart[] = $newCartItem;
         }
-
+        
         session(['cart' => $cart]);
-
+        
         return redirect()->back()->with('success', 'Product added to cart successfully.');
     }
 
