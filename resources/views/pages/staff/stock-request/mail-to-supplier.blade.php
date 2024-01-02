@@ -31,6 +31,13 @@
                     </div>
                 </div>
 
+                <div>
+                    <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900">Quantity Requested</label>
+                    <input type="number" name="quantity" id="quantity"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-purple-500 block w-1/4 p-2.5 border-2 border-solid"
+                        placeholder="e.g. 100" value="{{ old('quantity') }}">
+                </div>
+
                 <button type="submit"
                     class="mt-4 py-2 px-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:bg-purple-700">
                     Send

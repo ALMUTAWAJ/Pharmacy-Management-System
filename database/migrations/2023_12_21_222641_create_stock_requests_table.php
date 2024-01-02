@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('supplierID');
             $table->unsignedBigInteger('staffID');
+            $table->string('subject');
+            $table->integer('quantity');
             $table->unsignedBigInteger('productID');
             $table->timestamps();
 
