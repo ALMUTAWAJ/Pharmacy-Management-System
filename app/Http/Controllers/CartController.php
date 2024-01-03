@@ -65,7 +65,7 @@ class CartController extends Controller
                     $found = true;
                     break;
                 } else {
-                    return redirect()->back()->withErrors(['fail'=>'The product quantity exceeds the available stock.']);
+                    return redirect()->back()->withErrors('The product quantity exceeds the available stock.');
                 }
             }
         }
@@ -79,7 +79,7 @@ class CartController extends Controller
                 if ($newCartItem['quantity'] <= $product->stock) {
                     $cart[] = $newCartItem;
                 } else {
-                    return redirect()->back()->withErrors(['fail'=> 'The product quantity exceeds the available stock.']);
+                    return redirect()->back()->withErrors('The product quantity exceeds the available stock.');
                 }
             } else {
                 return redirect()->back()->with('fail', 'The product is out of stock.');

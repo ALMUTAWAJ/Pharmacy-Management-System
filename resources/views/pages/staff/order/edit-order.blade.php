@@ -49,7 +49,7 @@
                 <div class="flex flex-wrap gap-2">
                     <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Order ID: {{ $order->id }}</div>
                     <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Order Status: {{ $order->status }}</div>
-                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Total Price: BD{{ $order->total_price }}</div>
+                    <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Total Price: BD{{ number_format($order->total_price,2) }}</div>
                     <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Customer Name: @if($personal) {{ $personal->firstname }} {{ $personal->lastname }} @else N/A @endif</div>
                     <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Ordered At: {{ $order->created_at }}</div>
                     <div class="bg-gray-100 text-purple-900 px-2 py-1 rounded-md">Last Updated: {{ $order->updated_at }}</div>

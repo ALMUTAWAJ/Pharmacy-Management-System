@@ -47,7 +47,7 @@ Users blade
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
-                    <span class="font-medium">&nbsp; No Products Found.</span>
+                    <span class="font-medium">&nbsp; No Suppliers Found.</span>
                 </div>
             </div>
     </tr>
