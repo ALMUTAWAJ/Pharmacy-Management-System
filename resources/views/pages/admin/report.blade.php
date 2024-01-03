@@ -3,6 +3,9 @@
 @section('admin-content')
     <!-- Admin report content -->
     {{-- Filter by Date --}}
+    
+    {{-- <form action="{{ route('admin.report') }}" method="get">
+    <x-primary-button type="submit" id="submit-button">search</x-primary-button>
 <div date-rangepicker class="flex items-center">
     <span class="mx-4 text-gray-500">From</span>
     <div class="relative">
@@ -23,7 +26,32 @@
       <input name="end" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
   </div>
   </div>
+    </form> --}}
+    {{-- <form action="{{ route('admin.report') }}" method="get">
+        <x-primary-button type="submit" id="submit-button">search</x-primary-button>
+        <div date-rangepicker class="flex items-center">
+            <span class="mx-4 text-gray-500">From</span>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                    </svg>
+                </div>
+                <input name="start" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
+            </div>
+            <span class="mx-4 text-gray-500">to</span>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                    </svg>
+                </div>
+                <input name="end" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+            </div>
+        </div>
+    </form> --}}
 {{-- Summary --}}
+
 <div class="grid grid-cols-2 gap-4 my-2">
     <div class="bg-white border border-gray-300 rounded-lg p-2">
         <div class="flex justify-center">
@@ -82,7 +110,7 @@
               <!-- component -->
               {{-- the input for choosing how many product admin wants to see --}}
               <div class="grid grid-cols-3">
-                  <label for="number" class="col-span-2 mb-2 text-sm font-medium text-gray-600 dark:text-white">Top 3 Heighest rating products</label>
+                  <label for="number" class="col-span-2 mb-2 text-sm font-medium text-gray-600 dark:text-white">Most Recent Products</label>
                   {{-- <input type="number" id="choose-number" class="col-span-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required> --}}
               </div>
              
@@ -148,32 +176,27 @@
   {{------------ SCRIPT ------------}}
        <!--  srart slider script -->
        <script>
-          document.addEventListener("alpine:init", () => {
+        document.addEventListener("alpine:init", () => {
             Alpine.data("imageSlider", () => ({
-              currentIndex: 1,
-            //   images: [
-            //     '/images/{{$heighimages[0]}}',
-            //     '/images/{{$heighimages[1]}}',
-            //     '/images/{{$heighimages[2]}}',
-            //   ],
-            images: [
-                '/images/img1.png',
-                '/images/img2.png',
-                '/images/img3.png',
-              ],
-              previous() {
-                if (this.currentIndex > 1) {
-                  this.currentIndex = this.currentIndex - 1;
-                }
-              },
-              forward() {
-                if (this.currentIndex < this.images.length) {
-                  this.currentIndex = this.currentIndex + 1;
-                }
-              },
+                currentIndex: 1,
+                images: [
+                    @foreach ($heighImageNames as $imageName)
+                        '/images/{{ $imageName }}',
+                    @endforeach
+                ],
+                previous() {
+                    if (this.currentIndex > 1) {
+                        this.currentIndex = this.currentIndex - 1;
+                    }
+                },
+                forward() {
+                    if (this.currentIndex < this.images.length) {
+                        this.currentIndex = this.currentIndex + 1;
+                    }
+                },
             }));
-          });
-      </script>
+        });
+    </script>
     <!--  end slider script -->
   
       <!--  srart chart script -->

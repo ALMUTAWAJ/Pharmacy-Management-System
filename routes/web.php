@@ -89,6 +89,8 @@ Route::middleware(['auth'])->group(function () {
             return view('pages.admin.manage-staff');
         });
         Route::get('/admin/report', [ReportController::class, 'summary'])->name('admin.report');
+        // filter by date
+        // Route::post('/admin/report', [ReportController::class, 'su'])->name('admin.report');
 
         Route::resource('/admin/users', UserController::class);
         Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');

@@ -14,8 +14,8 @@
     {{-- <div class="admin-content border border-orange-400">
         @yield('admin-content')
     </div> --}}
-    <div class="admin-content p-4 sm:ml-64 border bordeer border-green-600">
-        <div class="p-4 border-2 border-red-400 border-dashed rounded-lg dark:border-gray-700">
+    <div class="admin-content p-4 sm:ml-64 border bordeer ">
+        <div class="p-4 border-2 border-purple-400 border-dashed rounded-lg dark:border-gray-700">
             {{-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-red-50 dark:bg-gray-500"> --}}
             {{-- <p class="text-2xl text-gray-400 dark:text-gray-500"> --}}
             @yield('admin-content')

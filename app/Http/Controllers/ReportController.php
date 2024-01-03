@@ -19,10 +19,7 @@ class ReportController extends Controller
     function summary(){
         //count customer
         $customers = DB::table('users')->where('role', 'customer')->count();
-
-        // $orders = DB::table('orders')->where('status', 'delivered')->count();
         $orders = Order::where('status', 'delivered')->count();
-
         $itemsSold = DB::table('order_details')->sum('quantity');
 
         $totalRevenue = DB::table('payments')->where('status', 'successful')->sum('amount');
@@ -49,9 +46,7 @@ class ReportController extends Controller
            $item->percentage = $calcPercentage;
         }
 
-        // heighest rating products
-        
-        // heighest rating products with there details
+
         $heighRate = DB::select('
         SELECT average_rate, P.*
         FROM (
@@ -62,35 +57,28 @@ class ReportController extends Controller
             JOIN products P ON subquery.productID = P.id
             ORDER BY average_rate DESC
         ');
-        //take first three images: 
-        // $heighimages = [$heighRate[0]->image, $heighRate[1]->image, $heighRate[2]->image];
-        $heighOrders = DB::select('
-    SELECT COUNT(OD.orderID) AS order_count, P.*
-    FROM order_details OD
-    INNER JOIN products P ON OD.productID = P.id
-    GROUP BY OD.productID
-    ORDER BY order_count DESC
-');
+$heighOrders = Product::orderBy('created_at', 'desc')->take(3)->get();
 
-if(!empty($heighOrders)) {
-    $heighOrderCount = $heighOrders[0]->order_count;
-    $heighimages = [$heighOrders[0]->image];
-} else {
-    $heighOrderCount = 0;
-    $heighimages = [];
+$heighImages = $heighOrders->pluck('image')->toArray();
+$heighImageNames = [];
+
+foreach ($heighImages as $image) {
+    $imageName = pathinfo($image, PATHINFO_FILENAME);
+    $heighImageNames[] = $imageName;
 }
 
-  
-        // return in reprot view
-        return view('pages.admin.report', 
-        ['customers' =>$customers,
-         'orders' =>$orders,
-         'itemsSold' =>$itemsSold,
-         'totalRevenue' =>$totalRevenue,
-         'totalValueSum' => $totalValueSum,
-         'categoryRevenuePercentage' => $categoryRevenuePercentage,
-         'heighimages' => $heighimages
-         ]);
+// return in report view
+return view('pages.admin.report', [
+    'customers' => $customers,
+    'orders' => $orders,
+    'itemsSold' => $itemsSold,
+    'totalRevenue' => $totalRevenue,
+    'totalValueSum' => $totalValueSum,
+    'categoryRevenuePercentage' => $categoryRevenuePercentage,
+    'heighImageNames' => $heighImageNames
+]);
 
     }
+
+
 }
