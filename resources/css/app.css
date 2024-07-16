@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* srart barchart  */
+
+.chart {
+    /* width: 600px; */
+    /* height: 300px; */
+    display: block;
+}
+
+.numbers {
+    color: black;
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.numbers li {
+    list-style: none;
+    height: 150px;
+    position: relative;
+    bottom: 145px;
+}
+
+.numbers span {
+    font-size: 12px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+.bars {
+    color: black;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgb(252, 252, 252);
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 500px;
+    height: 300px;
+    box-shadow: 0 0 px 0 #cac8c8;
+    border-radius: 5px;
+}
+
+.bars li {
+    display: table-cell;
+    width: 100px;
+    height: 300px;
+    position: relative;
+}
+
+.bars span {
+    width: 100%;
+    position: absolute;
+    bottom: -30px;
+    text-align: center;
+}
+
+.bars .bar {
+    display: block;
+    background: rgb(156, 96, 239);
+    width: 50px;
+    position: absolute;
+    bottom: 0;
+    margin-left: 25px;
+    text-align: center;
+    transition: 0.5s;
+    transition-property: background, box-shadow;
+}
+
+.bars .bar:hover {
+    background: rgb(80, 37, 130);
+    cursor: pointer;
+}
+
+.bars .bar:before {
+    color: black;
+    content: attr(data-percentage) '%';
+    position: relative;
+    bottom: 20px;
+}
+
+
+/* end barchart  */
