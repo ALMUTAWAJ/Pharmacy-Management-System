@@ -10,7 +10,7 @@ This repository hosts a Pharmacy Management System built using Laravel, designed
 ## Contributors
 
 - **ALMUTAWAJ**
-  - GitHub: [ALMUTWAJ](https://github.com/ALMUTAWAJ)
+  - GitHub: [ALMUTAWAJ](https://github.com/ALMUTAWAJ)
 
 - **iMAldoseri**
   - GitHub: [iMAldoseri](https://github.com/iMAldoseri)
